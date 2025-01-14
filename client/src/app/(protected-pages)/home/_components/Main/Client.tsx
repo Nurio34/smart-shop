@@ -1,30 +1,12 @@
-import { CatagorizedProductsType, ProductType } from "@/types/product";
 import Category from "./_components/Category";
+import { CategorizedProductsType } from "@/types/product";
 
-function Client({ products }: { products: ProductType[] }) {
-  const catagorizedProducts: CatagorizedProductsType[] = [];
-
-  products.forEach((product: ProductType) => {
-    const existingCategory = catagorizedProducts.find(
-      (item) => item.category === product.category
-    );
-    if (existingCategory) {
-      existingCategory.products.push(product);
-    } else {
-      catagorizedProducts.push({
-        category: product.category,
-        products: [product],
-      });
-    }
-  });
-
-  console.log(catagorizedProducts);
-
+function Client({ categories }: { categories: CategorizedProductsType[] }) {
   return (
     <section>
       <ul>
-        {catagorizedProducts.map((item) => (
-          <Category key={item.category} category={item} />
+        {categories.map((category) => (
+          <Category key={category.category} category={category} />
         ))}
       </ul>
     </section>

@@ -1,7 +1,9 @@
 "use client";
 
+import { becomeSeller } from "@/actions/becomeSeller";
 import { sellerFormSchema, SellerFormType } from "@/types/becomeSellerForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 function BecomeSellerPage() {
@@ -16,10 +18,15 @@ function BecomeSellerPage() {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: SellerFormType) => {
     try {
       // TODO: Implement API call to register seller
-      console.log(data);
+      const response = await becomeSeller(data);
+      if (response.status === "success") {
+        router.push(`/seller/${response.userId}`);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     }

@@ -1,17 +1,12 @@
 import Client from "./Client";
+import { fetchProductsByCategory } from "@/actions/fetchFiveProductsPerCategory";
 
 async function Main() {
-  const response = await fetch("https://dummyjson.com/products?limit=194", {
-    method: "GET",
-    next: {
-      tags: ["products"],
-    },
-  });
-  const { products } = await response.json();
+  const categories = await fetchProductsByCategory();
 
   return (
-    <main className=" py-[2vh] px-[2vw]">
-      <Client products={products} />
+    <main className="py-[2vh] px-[2vw]">
+      <Client categories={categories} />
     </main>
   );
 }

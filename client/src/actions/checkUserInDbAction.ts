@@ -11,6 +11,7 @@ export type CheckUserInDbActionType = {
 export const checkUserInDbAction = async (
   clerkUser: ClerkUserType
 ): Promise<CheckUserInDbActionType | null> => {
+  console.log("checkUserInDbAction");
   try {
     const existingUser: PrismaUserType | null = await prisma.user.findUnique({
       where: {
@@ -25,12 +26,11 @@ export const checkUserInDbAction = async (
         message: "Login successfull ...",
       };
     }
-
     const newUser: PrismaUserType = await prisma.user.create({
       data: {
         clerkId: clerkUser.id,
         email: clerkUser.emailAddresses[0].emailAddress,
-        name: clerkUser.fullName,
+        name: clerkUser.fullName || clerkUser.username,
         avatar: clerkUser.imageUrl,
       },
     });

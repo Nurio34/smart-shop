@@ -1,19 +1,6 @@
-export interface ProductType {
-  id: string;
-  sellerId: string;
-  title: string;
-  description: string;
-  price: number;
-  discountPercentage: number;
-  category: string;
-  stock: number;
-  images: string[];
-  thumbnail: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Product } from "@prisma/client";
 
-export interface CatagorizedProductsType {
+export interface CategorizedProductsType {
   category: string;
-  products: ProductType[];
+  products: Product[];
 }

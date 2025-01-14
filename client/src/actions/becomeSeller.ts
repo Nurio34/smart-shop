@@ -14,16 +14,28 @@ export const becomeSeller = async (data: SellerFormType) => {
     redirect("/home");
   }
 
-  const seller = await prisma.seller.create({
-    data: {
-      ...data,
-      clerkId,
-    },
-  });
+  const result = await prisma.$transaction([
+    prisma.seller.create({
+      data: {
+        ...data,
+        userId: clerkId,
+      },
+    }),
+    prisma.user.update({
+      where: {
+        clerkId: clerkId,
+      },
+      data: {
+        role: "SELLER",
+      },
+    }),
+  ]);
+
+  const seller = result[0];
 
   return {
     status: "success",
     message: "Seller created successfully",
-    clerkId: seller.clerkId,
+    userId: seller.userId,
   };
 };

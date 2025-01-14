@@ -1,6 +1,6 @@
-import { ProductType } from "@/types/product";
 import Image from "next/image";
 import Link from "next/link";
+import { Product as ProductType } from "@prisma/client";
 
 function Product({ product }: { product: ProductType }) {
   return (
