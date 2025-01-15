@@ -7,7 +7,7 @@ function Category({ category }: { category: CategorizedProductsType }) {
   return (
     <li className="mb-[2vh]">
       <Link
-        href={`/category/${categoryName}`}
+        href={`/explore?category=${categoryName}`}
         className="block max-w-max text-2xl font-bold mb-[1vh] capitalize"
         style={{ fontVariant: "small-caps" }}
       >

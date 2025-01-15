@@ -21,10 +21,6 @@ async function HomePage() {
   }
   //! *******************************
 
-  return (
-    <>
-      <Main />
-    </>
-  );
+  return <Main />;
 }
 export default HomePage;

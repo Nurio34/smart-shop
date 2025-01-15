@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 function Navigation({ role }: { role: string }) {
-  console.log({ role });
   const userNavigation = [
     {
       name: "home",
@@ -67,6 +66,7 @@ function Navigation({ role }: { role: string }) {
       icon: "",
     },
   ];
+
   const adminNavigation = [
     {
       name: "dashboard",

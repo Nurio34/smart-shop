@@ -2,7 +2,7 @@ import Hero from "./Hero";
 import Features from "./Features";
 import AI_Feature from "./AI_Feature";
 import More_Features from "./More_Features";
-import CTA from "../CTA";
+import CTA from "./CTA";
 
 function Main() {
   return (
