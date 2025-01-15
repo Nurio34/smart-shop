@@ -4,6 +4,7 @@ import { CategorizedProductsType } from "@/types/product";
 
 function Category({ category }: { category: CategorizedProductsType }) {
   const { category: categoryName, products } = category;
+  const productsAmount = products.length;
   return (
     <li className="mb-[2vh]">
       <Link
@@ -13,7 +14,13 @@ function Category({ category }: { category: CategorizedProductsType }) {
       >
         {categoryName}
       </Link>
-      <ul className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+      <ul
+        className={`grid gap-x-[2vw] gap-y-[2vh] ${
+          productsAmount < 5
+            ? "grid-cols-[repeat(auto-fill,minmax(200px,1fr))]"
+            : "grid-cols-[repeat(auto-fit,minmax(200px,1fr))]"
+        } `}
+      >
         {products.map((product) => (
           <Product key={product.id} product={product} />
         ))}

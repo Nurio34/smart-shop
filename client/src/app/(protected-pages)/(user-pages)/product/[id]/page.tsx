@@ -2,7 +2,23 @@ import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-async function ProductPage({ params }: { params: { id: string } }) {
+export const generateStaticParams = async () => {
+  const products = await prisma.product.findMany({
+    select: { id: true },
+  });
+
+  return products.map((product) => ({
+    id: product.id,
+  }));
+};
+
+async function ProductPage({
+  params,
+}: {
+  //! params is promise
+
+  params: Promise<{ id: string }>;
+}) {
   const clerkUser = await currentUser();
   const user = await prisma.user.findUnique({
     where: {

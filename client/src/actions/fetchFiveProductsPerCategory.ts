@@ -1,10 +1,13 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { CategorizedProductsType } from "@/types/product";
 
 const cache = new Map();
 
-export const fetchProductsByCategory = async () => {
+export const fetchProductsByCategory = async (): Promise<
+  CategorizedProductsType[]
+> => {
   console.log("fetchProductsByCategory-action");
 
   const cacheKey = "products-by-category";
@@ -29,14 +32,21 @@ export const fetchProductsByCategory = async () => {
           where: { category },
           take: 5,
           orderBy: { createdAt: "desc" },
+          include: {
+            seller: {
+              select: { brand: true },
+            },
+          },
         })
       )
     );
 
-    const result = categoryNames.map((category, index) => ({
-      category,
-      products: productsByCategory[index],
-    }));
+    const result: CategorizedProductsType[] = categoryNames.map(
+      (category, index) => ({
+        category,
+        products: productsByCategory[index],
+      })
+    );
 
     cache.set(cacheKey, result);
 

@@ -7,7 +7,9 @@ function Product({ product }: { product: ProductWithSeller }) {
   return (
     <li
       key={product.id}
-      className="overflow-hidden shadow-md p-[1vw] border rounded-md"
+      className="overflow-hidden shadow-md p-[1vw] border rounded-md transition-all
+      hover:scale-110 hover:-translate-y-1 hover:z-10 hover:shadow-xl hover:bg-base-100 hover:text-base-content
+      "
     >
       <Link href={`/product/${product.id}`}>
         <h3 className="truncate font-semibold text-lg">{product.title}</h3>
@@ -31,7 +33,6 @@ function Product({ product }: { product: ProductWithSeller }) {
             {product.seller.brand}
           </Link>
         </div>
-
         <p>
           ${(product.price * (1 - product.discountPercentage / 100)).toFixed(2)}
         </p>

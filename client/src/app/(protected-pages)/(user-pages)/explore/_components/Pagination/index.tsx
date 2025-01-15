@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Button from "./Button";
 
 function Pagination({
@@ -6,7 +5,7 @@ function Pagination({
   searchParams,
 }: {
   totalPaginationButtons: number;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
   return (
     <ul className="flex flex-wrap gap-y-[1vh] gap-x-[1vw] justify-center items-center py-[1vh] max-w-full overflow-hidden">

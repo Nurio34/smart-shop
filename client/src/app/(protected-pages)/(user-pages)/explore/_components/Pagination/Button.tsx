@@ -8,7 +8,7 @@ function Button({
   searchParams,
 }: {
   i: number;
-  searchParams: { [key: string]: string | undefined };
+  searchParams: Promise<{ [key: string]: string | undefined }>;
 }) {
   const params = useSearchParams();
   const page = params.get("page") || "0";

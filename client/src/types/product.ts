@@ -8,5 +8,5 @@ export interface ProductWithSeller extends ProductType {
 
 export interface CategorizedProductsType {
   category: string;
-  products: ProductType[];
+  products: ProductWithSeller[];
 }

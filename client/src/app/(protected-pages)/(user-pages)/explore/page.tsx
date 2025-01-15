@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 async function ExplorePage({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     page: string;
     category: string;
     minPrice: string;
@@ -16,7 +16,7 @@ async function ExplorePage({
     sort: string;
     tag: string;
     rating: string;
-  };
+  }>;
 }) {
   const { page, category, minPrice, maxPrice, sort, tag, rating } =
     await searchParams;
@@ -35,16 +35,37 @@ async function ExplorePage({
   if (user.role !== "USER") {
     return redirect("/home");
   }
-
-  const filters: any = {};
+  //! type for filters
+  type Filters = {
+    category?: string;
+    price?: { gte: number; lte?: number };
+    tags?: { has: string };
+    rating?: { gte: number };
+  };
+  //! ***
+  const filters: Filters = {};
 
   if (category) filters.category = category;
-  if (minPrice) filters.price = { gte: parseFloat(minPrice) };
-  if (maxPrice) filters.price = { ...filters.price, lte: parseFloat(maxPrice) };
-  if (tag) filters.tags = { has: tag }; // Use `has` for array fields
+  if (minPrice) {
+    filters.price = { gte: parseFloat(minPrice) };
+    if (maxPrice) {
+      filters.price.lte = parseFloat(maxPrice);
+    }
+  } else if (maxPrice) {
+    filters.price = { gte: 0, lte: parseFloat(maxPrice) };
+  }
+  if (tag) filters.tags = { has: tag };
   if (rating) filters.rating = { gte: parseFloat(rating) };
 
-  const sortOptions: any = {};
+  //! type for sort options
+  type SortOptions = {
+    price?: "asc" | "desc";
+    rating?: "desc";
+    createdAt?: "desc";
+  };
+  //! ***
+  const sortOptions: SortOptions = {};
+
   if (sort === "price_asc") sortOptions.price = "asc";
   if (sort === "price_desc") sortOptions.price = "desc";
   if (sort === "rating") sortOptions.rating = "desc";
@@ -54,8 +75,8 @@ async function ExplorePage({
     prisma.product.count({ where: filters }),
     prisma.product.findMany({
       where: filters,
-      take: 10,
-      skip: (parseInt(page) || 0) * 10,
+      take: 30,
+      skip: (parseInt(page) || 0) * 30,
       orderBy: sortOptions,
       include: {
         seller: {
@@ -67,7 +88,7 @@ async function ExplorePage({
     }),
   ]);
 
-  const totalPaginationButtons = Math.ceil(totalCount / 10);
+  const totalPaginationButtons = Math.ceil(totalCount / 30);
 
   return (
     <main
@@ -79,7 +100,7 @@ async function ExplorePage({
       <Products products={products} />
       <Pagination
         totalPaginationButtons={totalPaginationButtons}
-        searchParams={await searchParams}
+        searchParams={searchParams}
       />
     </main>
   );

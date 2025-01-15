@@ -55,7 +55,7 @@ enum SellerStatus {
 
 model Product {
   id                 String   @id @default(cuid())
-  sellerId      String
+  sellerId           String
   seller             Seller   @relation(fields: [sellerId], references: [userId])
   title              String
   description        String
