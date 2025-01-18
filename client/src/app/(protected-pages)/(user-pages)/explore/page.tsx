@@ -5,19 +5,22 @@ import Products from "./_components/Products";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
+export interface SearchParamsType {
+  page: string;
+  category: string;
+  minPrice: string;
+  maxPrice: string;
+  sort: string;
+  tag: string;
+  rating: string;
+}
+
 async function ExplorePage({
   searchParams,
 }: {
-  searchParams: Promise<{
-    page: string;
-    category: string;
-    minPrice: string;
-    maxPrice: string;
-    sort: string;
-    tag: string;
-    rating: string;
-  }>;
+  searchParams: Promise<SearchParamsType>;
 }) {
+  // Await searchParams before using its properties
   const { page, category, minPrice, maxPrice, sort, tag, rating } =
     await searchParams;
 
@@ -100,7 +103,7 @@ async function ExplorePage({
       <Products products={products} />
       <Pagination
         totalPaginationButtons={totalPaginationButtons}
-        searchParams={searchParams}
+        searchParams={await searchParams}
       />
     </main>
   );

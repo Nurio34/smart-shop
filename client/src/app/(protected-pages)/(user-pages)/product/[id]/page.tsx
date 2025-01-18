@@ -1,24 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Images from "./_components/Images";
+import Tags from "./_components/Tags";
+import Details from "./_components/Details";
+import ReturnPolicy from "./_components/ReturnPolicy";
+import ActionButtons from "./_components/ActionButtons";
+import PageContainer from "./PageContainer";
 
-export const generateStaticParams = async () => {
-  const products = await prisma.product.findMany({
-    select: { id: true },
-  });
-
-  return products.map((product) => ({
-    id: product.id,
-  }));
-};
-
-async function ProductPage({
-  params,
-}: {
-  //! params is promise
-
-  params: Promise<{ id: string }>;
-}) {
+async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const clerkUser = await currentUser();
   const user = await prisma.user.findUnique({
     where: {
@@ -39,7 +29,7 @@ async function ProductPage({
     return redirect("/home");
   }
 
-  return <div>ProductPage</div>;
+  return <PageContainer product={product} />;
 }
 
 export default ProductPage;

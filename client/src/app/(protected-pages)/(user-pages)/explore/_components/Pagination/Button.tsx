@@ -2,17 +2,18 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { SearchParamsType } from "../../page";
+import { log } from "console";
 
 function Button({
   i,
   searchParams,
 }: {
   i: number;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: SearchParamsType;
 }) {
-  const params = useSearchParams();
-  const page = params.get("page") || "0";
-  const isActive = page === i.toString();
+  let isActive = searchParams.page === i.toString();
+  if (!Boolean(searchParams.page) && i === 0) isActive = true;
 
   const url = new URL(`${process.env.NEXT_PUBLIC_URL}/explore`);
 
@@ -22,9 +23,22 @@ function Button({
     }
   });
 
+  const isAnyParams = Object.keys(searchParams).length > 0;
+  const isPageOnlyParams =
+    Object.keys(searchParams).length === 1 &&
+    Object.keys(searchParams)[0] === "page";
+
+  const condition1 = !isAnyParams;
+  const condition2 = isAnyParams && isPageOnlyParams;
+  const condition = condition1 || condition2;
+
+  const href = condition
+    ? `${url.toString()}?page=${i}`
+    : `${url.toString()}&page=${i}`;
+
   return (
     <Link
-      href={`${url.toString()}&page=${i}`}
+      href={href}
       type="button"
       className={`btn btn-sm ${isActive ? "btn-primary" : ""}`}
     >

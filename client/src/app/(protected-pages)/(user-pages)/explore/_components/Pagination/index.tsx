@@ -1,3 +1,4 @@
+import { SearchParamsType } from "../../page";
 import Button from "./Button";
 
 function Pagination({
@@ -5,7 +6,7 @@ function Pagination({
   searchParams,
 }: {
   totalPaginationButtons: number;
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: SearchParamsType;
 }) {
   return (
     <ul className="flex flex-wrap gap-y-[1vh] gap-x-[1vw] justify-center items-center py-[1vh] max-w-full overflow-hidden">

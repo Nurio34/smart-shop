@@ -21,21 +21,21 @@ export const cartSlice = createSlice({
     add: (state, action: PayloadAction<Product>) => {
       const product = { ...action.payload, quantity: 1 };
       state.cart.push(product);
+      state.total = +state.cart
+        .reduce((acc, p) => acc + p.price * p.quantity, 0)
+        .toFixed(2);
     },
     remove: (state, action: PayloadAction<Product>) => {
       state.cart = state.cart.filter((p) => p.id !== action.payload.id);
+      state.total = +state.cart
+        .reduce((acc, p) => acc + p.price * p.quantity, 0)
+        .toFixed(2);
     },
     clear: (state) => {
       state.cart = [];
     },
-    total: (state) => {
-      state.total = state.cart.reduce(
-        (acc, p) => acc + p.price * p.quantity,
-        0
-      );
-    },
   },
 });
 
-export const { add, remove, clear, total } = cartSlice.actions;
+export const { add, remove, clear } = cartSlice.actions;
 export default cartSlice.reducer;

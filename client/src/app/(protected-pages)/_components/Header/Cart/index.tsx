@@ -1,10 +1,10 @@
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
-import { Seller } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
-import CartPageContainer from "./CartPageContainer";
+import { currentUser } from "@clerk/nextjs/server";
+import { Seller } from "@prisma/client";
+import { redirect } from "next/navigation";
+import CartContainer from "./CartContainer";
 
-async function CartPage() {
+async function Cart() {
   const user = await currentUser();
 
   if (!user) {
@@ -18,9 +18,9 @@ async function CartPage() {
   });
 
   if (!seller) {
-    return <CartPageContainer />;
+    return <CartContainer />;
   }
 
   return null;
 }
-export default CartPage;
+export default Cart;
