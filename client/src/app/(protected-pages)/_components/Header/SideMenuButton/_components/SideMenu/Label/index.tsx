@@ -1,7 +1,7 @@
 function Label({ role }: { role: string }) {
   return (
     <div
-      className={`text-center font-semibold rounded-md justify-self-center py-1 px-2
+      className={`text-center text-black font-semibold rounded-md justify-self-center py-1 px-2
     ${
       role === "USER"
         ? "bg-gradient-to-r from-green-500 to-green-300"

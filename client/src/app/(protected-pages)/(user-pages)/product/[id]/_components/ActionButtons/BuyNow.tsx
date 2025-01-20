@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { add, clear } from "@/store/slices/cart";
 import { Product } from "@prisma/client";
 

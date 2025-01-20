@@ -24,26 +24,27 @@ model User {
   updatedAt DateTime @updatedAt
   seller    Seller?
   reviews   Review[]
+  orders    Order[]
 }
 
 enum Role {
-  USER    
-  SELLER  
-  ADMIN   
+  USER
+  SELLER
+  ADMIN
 }
 
 model Seller {
-  id                  String       @id @default(cuid())
-  userId             String       @unique
-  user                User         @relation(fields: [userId], references: [clerkId])
-  brand               String
-  description         String
-  returnPolicy        String
+  id                   String       @id @default(cuid())
+  userId               String       @unique
+  user                 User         @relation(fields: [userId], references: [clerkId])
+  brand                String
+  description          String
+  returnPolicy         String
   minimumOrderQuantity Int
-  status              SellerStatus @default(PENDING)
-  createdAt           DateTime     @default(now())
-  updatedAt           DateTime     @updatedAt
-  products            Product[]
+  status               SellerStatus @default(PENDING)
+  createdAt            DateTime     @default(now())
+  updatedAt            DateTime     @updatedAt
+  products             Product[]
 }
 
 enum SellerStatus {
@@ -54,34 +55,64 @@ enum SellerStatus {
 }
 
 model Product {
-  id                 String   @id @default(cuid())
-  sellerId           String
-  seller             Seller   @relation(fields: [sellerId], references: [userId])
-  title              String
-  description        String
-  category           String
-  price              Float
-  discountPercentage Float    @default(0)
-  rating             Float    @default(0)
-  stock              Int
-  tags               String[]
-  brand              String
-  reviews             Review[]
-  returnPolicy       String
+  id                   String      @id @default(cuid())
+  sellerId             String
+  seller               Seller      @relation(fields: [sellerId], references: [userId])
+  title                String
+  description          String
+  category             String
+  price                Float
+  discountPercentage   Float       @default(0)
+  rating               Float       @default(0)
+  stock                Int
+  tags                 String[]
+  brand                String
+  reviews              Review[]
+  returnPolicy         String
   minimumOrderQuantity Int
-  images             String[]
-  thumbnail          String
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  images               String[]
+  thumbnail            String
+  orderItems           OrderItem[]
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
 }
 
 model Review {
-  id        String   @id @default(cuid())
-  productId String
-  product   Product  @relation(fields: [productId], references: [id])
-  rating    Int
-  comment   String
-  date      DateTime
+  id         String   @id @default(cuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+  rating     Int
+  comment    String
+  date       DateTime
   reviewerId String
   reviewer   User     @relation(fields: [reviewerId], references: [clerkId])
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  userClerkId String
+  user        User        @relation(fields: [userClerkId], references: [clerkId])
+  status      OrderStatus
+  totalAmount Float
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELED
 }

@@ -1,11 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import Images from "./_components/Images";
-import Tags from "./_components/Tags";
-import Details from "./_components/Details";
-import ReturnPolicy from "./_components/ReturnPolicy";
-import ActionButtons from "./_components/ActionButtons";
 import PageContainer from "./PageContainer";
 
 async function ProductPage({ params }: { params: Promise<{ id: string }> }) {

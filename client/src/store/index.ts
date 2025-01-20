@@ -9,7 +9,12 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ["cart/add", "cart/remove"],
+        ignoredActions: [
+          "cart/add",
+          "cart/remove",
+          "cart/addOne",
+          "cart/removeOne",
+        ],
         // Ignore these field paths in all actions
         ignoredActionPaths: ["meta.arg", "payload.timestamp"],
         // Ignore these paths in the state

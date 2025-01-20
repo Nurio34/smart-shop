@@ -1,9 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { SearchParamsType } from "../../page";
-import { log } from "console";
 
 function Button({
   i,

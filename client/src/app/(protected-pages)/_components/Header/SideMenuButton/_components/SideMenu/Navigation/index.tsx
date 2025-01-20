@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 function Navigation({ role }: { role: string }) {
   const userNavigation = [
@@ -30,11 +33,6 @@ function Navigation({ role }: { role: string }) {
     {
       name: "support",
       href: "/support",
-      icon: "",
-    },
-    {
-      name: "faq",
-      href: "/faq",
       icon: "",
     },
   ];
@@ -95,13 +93,20 @@ function Navigation({ role }: { role: string }) {
     },
   ];
 
+  const path = usePathname();
+
   return (
     <>
       {role === "USER" ? (
         <ul className="flex flex-col gap-y-[1vh]">
           {userNavigation.map((item) => (
             <li key={item.name}>
-              <Link className="btn btn-sm w-full capitalize" href={item.href}>
+              <Link
+                className={`btn btn-sm w-full capitalize ${
+                  path === item.href ? "btn-accent" : ""
+                }`}
+                href={item.href}
+              >
                 {item.name}
               </Link>
             </li>
@@ -111,7 +116,12 @@ function Navigation({ role }: { role: string }) {
         <ul className="flex flex-col gap-y-[1vh]">
           {sellerNavigation.map((item) => (
             <li key={item.name}>
-              <Link className="btn btn-sm w-full capitalize" href={item.href}>
+              <Link
+                className={`btn btn-sm w-full capitalize ${
+                  path === item.href ? "btn-accent" : ""
+                }`}
+                href={item.href}
+              >
                 {item.name}
               </Link>{" "}
             </li>
@@ -121,7 +131,12 @@ function Navigation({ role }: { role: string }) {
         <ul className="flex flex-col gap-y-[1vh]">
           {adminNavigation.map((item) => (
             <li key={item.name}>
-              <Link className="btn btn-sm w-full capitalize" href={item.href}>
+              <Link
+                className={`btn btn-sm w-full capitalize ${
+                  path === item.href ? "btn-accent" : ""
+                }`}
+                href={item.href}
+              >
                 {item.name}
               </Link>{" "}
             </li>

@@ -4,6 +4,7 @@ import BecomeSeller from "./BecomeSeller";
 import Navigation from "./Navigation";
 import SideMenuButton from "./SideMenuButton";
 import Cart from "./Cart";
+import Theme from "@/app/_globalComponents/Theme";
 
 function Header() {
   return (
@@ -14,6 +15,7 @@ function Header() {
       <div className="flex gap-x-[2vw]">
         <Auth />
         <Cart />
+        <Theme />
         <SideMenuButton />
       </div>
     </header>
