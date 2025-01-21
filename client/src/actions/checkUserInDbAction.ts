@@ -11,7 +11,6 @@ export type CheckUserInDbActionType = {
 export const checkUserInDbAction = async (
   clerkUser: ClerkUserType
 ): Promise<CheckUserInDbActionType | null> => {
-  console.log("checkUserInDbAction");
   try {
     const existingUser: PrismaUserType | null = await prisma.user.findUnique({
       where: {

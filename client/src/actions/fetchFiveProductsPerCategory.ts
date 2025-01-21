@@ -8,8 +8,6 @@ const cache = new Map();
 export const fetchProductsByCategory = async (): Promise<
   CategorizedProductsType[]
 > => {
-  console.log("fetchProductsByCategory-action");
-
   const cacheKey = "products-by-category";
 
   if (cache.has(cacheKey)) {

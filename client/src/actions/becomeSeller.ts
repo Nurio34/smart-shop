@@ -6,7 +6,6 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export const becomeSeller = async (data: SellerFormType) => {
-  console.log("becomeSeller action");
   const user = await currentUser();
   const clerkId = user?.id;
 

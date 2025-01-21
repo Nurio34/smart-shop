@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Image from "next/image";
+import Link from "next/link";
 
 async function UserOrders({ clerkId }: { clerkId: string }) {
   const orders = await prisma.order.findMany({
@@ -7,12 +8,19 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
     include: {
       items: {
         include: {
-          product: true,
+          product: {
+            include: {
+              seller: {
+                select: {
+                  brand: true,
+                },
+              },
+            },
+          },
         },
       },
     },
   });
-  console.log({ orders });
 
   return (
     <div className="orders-container px-4 lg:px-20 xl:px-40 py-8">
@@ -59,13 +67,15 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                     key={index}
                     className="order-item flex items-center border-b border-neutral-200 pb-3"
                   >
-                    <Image
-                      src={item.product.thumbnail}
-                      alt={item.product.title}
-                      width={80}
-                      height={80}
-                      className="rounded-md mr-4"
-                    />
+                    <Link href={`/product/${item.productId}`}>
+                      <Image
+                        src={item.product.thumbnail}
+                        alt={item.product.title}
+                        width={80}
+                        height={80}
+                        className="rounded-md mr-4"
+                      />
+                    </Link>
                     <div className="flex-grow">
                       <p className="font-medium text-neutral-800">
                         {item.product.title}
@@ -76,6 +86,12 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                       <p className="text-sm text-neutral-600">
                         Price: ${item.price.toFixed(2)}
                       </p>
+                      <Link
+                        href={`/seller/${item.product.sellerId}`}
+                        className="btn btn-sm btn-link px-0 capitalize"
+                      >
+                        {item.product.seller.brand}
+                      </Link>
                     </div>
                   </div>
                 ))}

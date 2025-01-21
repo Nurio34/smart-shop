@@ -2,7 +2,6 @@
 
 import nodemailer from "nodemailer";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
 // Create a Nodemailer transporter using an SMTP server (Gmail example)
 const transporter = nodemailer.createTransport({
@@ -67,8 +66,6 @@ Smart Shop Team`,
 
     // Send the email
     await transporter.sendMail(mailOptions);
-
-    return new NextResponse("Email sent successfully", { status: 200 });
   } catch (error) {
     console.error(error);
   }

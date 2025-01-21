@@ -11,8 +11,6 @@ export type OrderErrorsType = {
 export const checkStocksAndMinOrderQuantityAction = async (
   cart: ProductWithQuantity[]
 ): Promise<OrderErrorsType[]> => {
-  console.log("checkStockAction");
-
   const orderErrors: OrderErrorsType[] = [];
 
   const quantites = cart.map((product) => ({

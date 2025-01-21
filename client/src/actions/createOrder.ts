@@ -9,8 +9,6 @@ export const createOrder = async (
   cart: ProductWithQuantity[],
   total: number
 ) => {
-  console.log("createOrder action ..");
-
   if (!Array.isArray(cart) || cart.length === 0) {
     throw new Error("Cart is empty or invalid.");
   }
@@ -24,7 +22,6 @@ export const createOrder = async (
   if (!user) return redirect("/home");
 
   const userClerkId = user.id;
-  console.log({ userClerkId, total, cart });
 
   try {
     const order = await prisma.order.create({

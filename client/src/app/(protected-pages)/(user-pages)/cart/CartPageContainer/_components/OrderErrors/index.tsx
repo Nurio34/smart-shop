@@ -2,7 +2,6 @@ import { useAppSelector } from "@/store/hooks";
 
 function OrderErrors() {
   const { orderErrors } = useAppSelector((s) => s.cart);
-  console.log(orderErrors);
 
   return (
     <ul className="pt-[1vh] px-[2vw]">
