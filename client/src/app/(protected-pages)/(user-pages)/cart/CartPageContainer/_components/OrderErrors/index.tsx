@@ -5,7 +5,9 @@ function OrderErrors() {
 
   return (
     <ul className="pt-[1vh] px-[2vw]">
-      <h2 className=" text-2xl font-bold text-error ">Warning !</h2>
+      {orderErrors.length > 0 && (
+        <h2 className=" text-2xl font-bold text-error ">Warning !</h2>
+      )}
       {orderErrors.map((error) => (
         <li key={error.id} className=" list-disc list-inside text-error">
           {error.msg}

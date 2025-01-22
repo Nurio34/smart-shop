@@ -1,4 +1,4 @@
-import { OrderErrorsType } from "@/actions/checkStocksAndMinOrderQuantityAction";
+import { OrderErrorsType } from "@/actions/order/checkStocksAndMinOrderQuantityAction";
 import { Product } from "@prisma/client";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";

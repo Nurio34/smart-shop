@@ -14,17 +14,41 @@ datasource db {
 }
 
 model User {
+  id            String         @id @default(cuid())
+  clerkId       String         @unique
+  email         String         @unique
+  name          String?
+  avatar        String?
+  role          Role           @default(USER)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  seller        Seller?
+  reviews       Review[]
+  orders        Order[]
+  notifications Notification[]
+  history       Product[]      @relation("UserHistory")
+  chat          Chat?
+}
+
+model Chat {
+  id       String        @id @default(cuid())
+  userId   String        @unique
+  user     User          @relation(fields: [userId], references: [clerkId])
+  messages ChatMessage[]
+}
+
+model ChatMessage {
   id        String   @id @default(cuid())
-  clerkId   String   @unique
-  email     String   @unique
-  name      String?
-  avatar    String?
-  role      Role     @default(USER)
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  role      Messager
+  message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  seller    Seller?
-  reviews   Review[]
-  orders    Order[]
+}
+
+enum Messager {
+  user
+  model
 }
 
 enum Role {
@@ -75,6 +99,7 @@ model Product {
   orderItems           OrderItem[]
   createdAt            DateTime    @default(now())
   updatedAt            DateTime    @updatedAt
+  history              User[]      @relation("UserHistory")
 }
 
 model Review {
@@ -115,4 +140,13 @@ enum OrderStatus {
   SHIPPED
   DELIVERED
   CANCELED
+}
+
+model Notification {
+  id         String   @id @default(cuid())
+  recieverId String
+  reciever   User     @relation(fields: [recieverId], references: [clerkId])
+  message    String
+  seen       Boolean  @default(false)
+  createdAt  DateTime @default(now())
 }

@@ -1,13 +1,14 @@
 import {
   checkStocksAndMinOrderQuantityAction,
   OrderErrorsType,
-} from "@/actions/checkStocksAndMinOrderQuantityAction";
-import { createOrder } from "@/actions/createOrder";
-import { conformationMailAfterOrder } from "@/actions/mail/conformationMailAfterOrder";
-import { updateProductsAfterOrder } from "@/actions/updateProductsAfterOrder";
+} from "@/actions/order/checkStocksAndMinOrderQuantityAction";
+import { createOrder } from "@/actions/order/createOrder";
+import { conformationMailAfterOrder } from "@/actions/order/conformationMailAfterOrder";
+import { updateProductsAfterOrder } from "@/actions/order/updateProductsAfterOrder";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clear, setOrderErrors } from "@/store/slices/cart";
 import { useRouter } from "next/navigation";
+import { sendNotificationsToSellers } from "@/actions/order/sendNotificationsToSellers";
 
 function CheckoutButton() {
   const { cart, total } = useAppSelector((s) => s.cart);
@@ -27,6 +28,7 @@ function CheckoutButton() {
         dispatch(clear());
         await updateProductsAfterOrder(cart);
         await conformationMailAfterOrder(orderId);
+        await sendNotificationsToSellers(cart);
         router.push("/orders");
       }
 

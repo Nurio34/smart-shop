@@ -27,7 +27,7 @@ async function OrdersPage() {
     <>
       {role === "USER" ? (
         <UserOrders clerkId={clerkId} />
-      ) : role === "ADMIN" ? (
+      ) : role === "SELLER" ? (
         <SellerOrders clerkId={clerkId} />
       ) : (
         <AdminOrders />
