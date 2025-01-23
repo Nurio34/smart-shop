@@ -79,22 +79,6 @@ function UserProfile({ user }: { user: User }) {
         </button>
       </section>
 
-      {/* Orders Section */}
-      <section>
-        <h2 className="text-xl font-semibold mb-4">Order History</h2>
-        <div className="space-y-4">
-          {[1, 2, 3].map((order) => (
-            <div key={order} className="p-4 bg-gray-100 rounded-lg">
-              <h3 className="text-lg font-medium">Order #{order}</h3>
-              <p className="text-gray-500">Placed on: 2025-01-01</p>
-              <button className="mt-2 text-blue-500 hover:underline">
-                View Details
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Account Deletion Section */}
       <section>
         <h2 className="text-xl font-semibold mb-4">Account Management</h2>

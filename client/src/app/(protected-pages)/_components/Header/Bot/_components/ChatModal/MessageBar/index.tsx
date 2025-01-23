@@ -12,7 +12,6 @@ function MessageBar({
     role: "user",
     message: "",
   });
-  console.log(message);
 
   return (
     <form
@@ -31,6 +30,7 @@ function MessageBar({
         onChange={(e) =>
           setMessage((prev) => ({ ...prev, message: e.target.value }))
         }
+        autoComplete="off"
       />
       <button
         type="submit"

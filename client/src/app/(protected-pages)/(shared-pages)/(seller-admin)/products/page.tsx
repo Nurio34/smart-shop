@@ -28,6 +28,14 @@ async function ProductsPage() {
 
   if (role === "USER") return redirect("/home");
 
-  return <>{role === "SELLER" ? <SellerProducts /> : <AdminProducts />}</>;
+  return (
+    <>
+      {role === "SELLER" ? (
+        <SellerProducts products={user.seller?.products} />
+      ) : (
+        <AdminProducts />
+      )}
+    </>
+  );
 }
 export default ProductsPage;

@@ -2,38 +2,50 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { RiDashboardFill } from "react-icons/ri";
+import { FaCubesStacked } from "react-icons/fa6";
+import { LiaJediOrder } from "react-icons/lia";
+import { GiPlagueDoctorProfile } from "react-icons/gi";
+import { TbHomeFilled } from "react-icons/tb";
+import { MdContactSupport, MdTravelExplore } from "react-icons/md";
+import { HiMiniShoppingCart } from "react-icons/hi2";
 
 function Navigation({ role }: { role: string }) {
   const userNavigation = [
     {
+      name: "becomeSeller",
+      href: "/become-seller",
+      icon: "",
+    },
+    {
       name: "home",
       href: "/home",
-      icon: "",
+      icon: <TbHomeFilled size={24} />,
     },
     {
       name: "explore",
       href: "/explore",
-      icon: "",
+      icon: <MdTravelExplore size={24} />,
     },
     {
       name: "cart",
       href: "/cart",
-      icon: "",
+      icon: <HiMiniShoppingCart size={24} />,
     },
     {
       name: "orders",
       href: "/orders",
-      icon: "",
+      icon: <LiaJediOrder size={24} />,
     },
     {
       name: "profile",
       href: "/profile",
-      icon: "",
+      icon: <GiPlagueDoctorProfile size={24} />,
     },
     {
       name: "support",
       href: "/support",
-      icon: "",
+      icon: <MdContactSupport size={24} />,
     },
   ];
 
@@ -41,27 +53,22 @@ function Navigation({ role }: { role: string }) {
     {
       name: "dashboard",
       href: "/dashboard",
-      icon: "",
+      icon: <RiDashboardFill size={24} />,
     },
     {
       name: "products",
       href: "/products",
-      icon: "",
+      icon: <FaCubesStacked size={24} />,
     },
     {
       name: "orders",
       href: "/orders",
-      icon: "",
-    },
-    {
-      name: "analytics",
-      href: "/analytics",
-      icon: "",
+      icon: <LiaJediOrder size={24} />,
     },
     {
       name: "profile",
       href: "/profile",
-      icon: "",
+      icon: <GiPlagueDoctorProfile size={24} />,
     },
   ];
 
@@ -102,11 +109,14 @@ function Navigation({ role }: { role: string }) {
           {userNavigation.map((item) => (
             <li key={item.name}>
               <Link
-                className={`btn btn-sm w-full capitalize ${
-                  path === item.href ? "btn-accent" : ""
+                className={`btn btn-sm w-full capitalize flex items-center justify-start gap-[0.5vw] ${
+                  path === item.href ? "btn-secondary" : ""
+                } ${
+                  item.name === "becomeSeller" ? "btn-accent md:hidden" : ""
                 }`}
                 href={item.href}
               >
+                {item.icon}
                 {item.name}
               </Link>
             </li>
@@ -117,11 +127,12 @@ function Navigation({ role }: { role: string }) {
           {sellerNavigation.map((item) => (
             <li key={item.name}>
               <Link
-                className={`btn btn-sm w-full capitalize ${
-                  path === item.href ? "btn-accent" : ""
+                className={`btn btn-sm w-full capitalize flex items-center justify-start gap-[0.5vw] ${
+                  path === item.href ? "btn-secondary" : ""
                 }`}
                 href={item.href}
               >
+                {item.icon}
                 {item.name}
               </Link>{" "}
             </li>
@@ -133,7 +144,7 @@ function Navigation({ role }: { role: string }) {
             <li key={item.name}>
               <Link
                 className={`btn btn-sm w-full capitalize ${
-                  path === item.href ? "btn-accent" : ""
+                  path === item.href ? "btn-secondary" : ""
                 }`}
                 href={item.href}
               >

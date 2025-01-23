@@ -1,23 +1,75 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChatHistoryType } from "../../../Client";
 
-function ChatScreen({ chatHistory }: { chatHistory: ChatHistoryType[] }) {
+function ChatScreen({
+  chatHistory,
+  isLoading,
+}: {
+  chatHistory: ChatHistoryType[];
+  isLoading: boolean;
+}) {
   const lastMessageRef = useRef<HTMLLIElement | null>(null);
-  console.log(lastMessageRef);
+
+  const [lastBotMessageState, setLastBotMessageState] = useState<string>("");
+
+  //! *** local storage ***
+  const isLastMessageSeenStorage = localStorage.getItem("isLastMessageSeen");
+  let isLastMessageSeen = false;
+  if (!isLastMessageSeenStorage) console.log("no storage");
+  else {
+    isLastMessageSeen = JSON.parse(isLastMessageSeenStorage);
+  }
+  //! ***
 
   useEffect(() => {
     if (lastMessageRef.current) {
       lastMessageRef.current.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "end",
       });
     }
-  }, [chatHistory]);
+
+    let interval: NodeJS.Timeout;
+    setLastBotMessageState("");
+
+    const lastMessage = chatHistory[chatHistory.length - 1];
+    const lastBotMessage =
+      lastMessage.role === "model" ? lastMessage.message : null;
+
+    if (lastBotMessage && !isLastMessageSeen) {
+      const lastBotMessageChunks = lastBotMessage.split(" ");
+      let currentIndex = 0;
+      const lastChunk = lastBotMessageChunks.length - 1;
+
+      interval = setInterval(() => {
+        setLastBotMessageState(
+          (pre) => `${pre} ${lastBotMessageChunks[currentIndex]}`
+        );
+        currentIndex++;
+        if (lastMessageRef.current) {
+          lastMessageRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+          });
+        }
+
+        if (currentIndex === lastChunk) {
+          clearInterval(interval);
+          localStorage.setItem("isLastMessageSeen", JSON.stringify(true));
+          isLastMessageSeen = true;
+        }
+      }, 100);
+    }
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [chatHistory, isLoading]);
 
   return (
     <ul
-      className=" max-h-[328.97px]  overflow-y-auto
-        grid gap-y-[1vh]
+      className=" max-h-[328.97px] py-2  overflow-y-auto
+        grid gap-y-[1vh] items-start
     "
       style={{ scrollbarWidth: "thin" }}
     >
@@ -25,6 +77,27 @@ function ChatScreen({ chatHistory }: { chatHistory: ChatHistoryType[] }) {
         if (index === 0) {
           return null;
         }
+
+        if (
+          index === chatHistory.length - 1 &&
+          item.role === "model" &&
+          !isLastMessageSeen
+        ) {
+          return (
+            <li
+              ref={(el) => {
+                if (chatHistory.length - 1 === index) {
+                  lastMessageRef.current = el;
+                }
+              }}
+              key={index}
+              className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent/10`}
+            >
+              {lastBotMessageState.replaceAll("**", "")}
+            </li>
+          );
+        }
+
         return (
           <li
             ref={(el) => {
@@ -39,10 +112,18 @@ function ChatScreen({ chatHistory }: { chatHistory: ChatHistoryType[] }) {
                 : "justify-self-start bg-accent/10"
             }`}
           >
-            {item.message}
+            <p>{item.message.replaceAll("**", "")}</p>
           </li>
         );
       })}
+      {isLoading && (
+        <li
+          ref={lastMessageRef}
+          className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent animate-pulse`}
+        >
+          Please wait ...
+        </li>
+      )}
     </ul>
   );
 }

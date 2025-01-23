@@ -5,22 +5,29 @@ import SideMenuButton from "./SideMenuButton";
 import Cart from "./Cart";
 import Theme from "@/app/_globalComponents/Theme";
 import Notifications from "./Notifications";
-import Search from "./Search";
 import Bot from "./Bot";
+import Search from "./Search";
 
-function Header() {
+async function Header() {
   return (
-    <header className="flex gap-x-[2vw] justify-between items-center  pr-[1vw] border-b border-base-content">
-      <Logo />
-      <Search />
-      <div className="flex gap-x-[2vw]">
-        <Bot />
-        <BecomeSeller />
-        <Auth />
-        <Cart />
-        <Theme />
-        <Notifications />
-        <SideMenuButton />
+    <header className="grid grid-rows-[1fr,auto] border-b border-base-content pb-2">
+      <div className="flex gap-x-[2vw] justify-between items-center pr-[1vw] ">
+        <Logo />
+        <div className=" relative grow hidden md:block">
+          <Search />
+        </div>
+        <div className="flex justify-between gap-x-[2vw] grow md:grow-0">
+          <Bot />
+          <BecomeSeller />
+          <Auth />
+          <Cart />
+          <Theme />
+          <Notifications />
+          <SideMenuButton />
+        </div>
+      </div>
+      <div className="md:hidden px-[1vw]">
+        <Search />
       </div>
     </header>
   );

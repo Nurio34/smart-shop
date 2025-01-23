@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { clear, setOrderErrors } from "@/store/slices/cart";
 import { useRouter } from "next/navigation";
 import { sendNotificationsToSellers } from "@/actions/order/sendNotificationsToSellers";
+import { updateHistory } from "@/actions/order/updateHistory";
 
 function CheckoutButton() {
   const { cart, total } = useAppSelector((s) => s.cart);
@@ -29,6 +30,7 @@ function CheckoutButton() {
         await updateProductsAfterOrder(cart);
         await conformationMailAfterOrder(orderId);
         await sendNotificationsToSellers(cart);
+        await updateHistory(cart);
         router.push("/orders");
       }
 

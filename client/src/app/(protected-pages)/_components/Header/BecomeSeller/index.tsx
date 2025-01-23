@@ -21,7 +21,7 @@ async function BecomeSeller() {
     return (
       <Link
         href="/become-seller"
-        className="btn btn-sm btn-accent text-accent-content"
+        className="btn btn-sm btn-accent text-accent-content hidden md:flex justify-center items-center"
       >
         BecomeSeller
       </Link>
