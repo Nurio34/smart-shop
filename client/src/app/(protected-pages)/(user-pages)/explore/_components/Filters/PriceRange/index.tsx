@@ -5,13 +5,13 @@ function PriceRange() {
         name="minPrice"
         type="number"
         placeholder="Min. Price"
-        className="input input-sm md:input-md input-bordered grow"
+        className="input input-sm md:input-md input-bordered w-1/2 "
       />
       <input
         name="maxPrice"
         type="number"
         placeholder="Max. Price"
-        className="input input-sm md:input-md input-bordered grow"
+        className="input input-sm md:input-md input-bordered w-1/2"
       />
     </div>
   );

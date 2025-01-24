@@ -6,7 +6,7 @@ function Product({ product }: { product: ProductWithSeller }) {
   return (
     <li
       className="overflow-hidden shadow-md p-[1vw] border rounded-md transition-all 
-      hover:scale-110 hover:-translate-y-1 hover:z-10 hover:shadow-xl hover:bg-base-100 hover:text-base-content
+      hover:shadow-md hover:border hover:border-primary hover:shadow-primary hover:scale-105
     "
     >
       <Link href={`/product/${product.id}`}>

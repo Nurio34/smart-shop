@@ -91,7 +91,7 @@ function ChatScreen({
                 }
               }}
               key={index}
-              className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent/10`}
+              className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent/30`}
             >
               {lastBotMessageState.replaceAll("**", "")}
             </li>
@@ -108,8 +108,8 @@ function ChatScreen({
             key={index}
             className={`w-11/12 py-1 px-2 rounded-md ${
               item.role === "user"
-                ? " justify-self-end bg-secondary/10"
-                : "justify-self-start bg-accent/10"
+                ? " justify-self-end bg-secondary/30"
+                : "justify-self-start bg-accent/30"
             }`}
           >
             <p>{item.message.replaceAll("**", "")}</p>

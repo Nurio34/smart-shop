@@ -16,7 +16,7 @@ async function Header() {
         <div className=" relative grow hidden md:block">
           <Search />
         </div>
-        <div className="flex justify-between gap-x-[2vw] grow md:grow-0">
+        <div className="flex justify-between gap-x-0 md:gap-x-[2vw] grow md:grow-0">
           <Bot />
           <BecomeSeller />
           <Auth />

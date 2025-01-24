@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function CTA() {
   return (
     <section className="bg-gradient-to-r from-primary to-secondary text-primary-content py-[8vh] px-[4vw]">
@@ -9,9 +11,12 @@ function CTA() {
           Join thousands of happy customers who have discovered a smarter way to
           shop.
         </p>
-        <button className="bg-primary-content text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+        <Link
+          href={"/home"}
+          className="bg-primary-content text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300"
+        >
           Get Started Now
-        </button>
+        </Link>
       </div>
     </section>
   );

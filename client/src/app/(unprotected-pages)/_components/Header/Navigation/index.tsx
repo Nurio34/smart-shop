@@ -9,8 +9,8 @@ function Navigation() {
   ];
 
   return (
-    <nav>
-      <ul className="flex gap-6">
+    <nav className=" hidden md:block">
+      <ul className="flex gap-x-[2vw] ">
         {navItems.map((item) => (
           <LinkComponent key={item.label} href={item.href} label={item.label} />
         ))}

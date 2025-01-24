@@ -26,7 +26,7 @@ function MessageBar({
         type="text"
         name="msg"
         id="msg"
-        className="grow py-1 px-[0.5vw]"
+        className="grow py-1 px-[2vw] md:px-[0.5vw] text-base-content "
         onChange={(e) =>
           setMessage((prev) => ({ ...prev, message: e.target.value }))
         }

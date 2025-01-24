@@ -56,7 +56,11 @@ export default function SearchClient() {
 
   return (
     <>
-      <form className=" w-full px-[1vw] flex items-center gap-[1vw] border rounded-full overflow-hidden shadow-md">
+      <form
+        className=" w-full px-[1vw] flex items-center gap-[1vw] border rounded-full overflow-hidden shadow-md
+        
+      "
+      >
         <input
           type="text"
           name="search"

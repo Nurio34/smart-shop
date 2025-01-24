@@ -35,8 +35,8 @@ function SearchedProducts({
     <AnimatePresence>
       {searchedProducts.length > 0 && (
         <motion.ul
-          className=" absolute z-10 max-w-full max-h-[420px] py-[1vh] px-[1vw] bg-base-content rounded-lg overflow-y-auto
-              grid gap-y-[1vh]
+          className=" absolute z-10 md:min-w-96 max-w-full max-h-[420px] py-[1vh] px-[1vw] bg-base-content rounded-lg overflow-y-auto
+              grid gap-y-[1vh] border-2 border-secondary shadow-md shadow-secondary
             "
           style={{
             scrollbarWidth: "thin",

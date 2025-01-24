@@ -20,9 +20,9 @@ function ChatModal({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed md:absolute z-10 left-0 md:left-1/2  md:-translate-x-1/2 w-80 md:w-[425px] aspect-square bg-base-300 text-base-content rounded-lg py-[1vh] px-[1vw] 
-      grid grid-rows-[1fr,auto]
-    "
+          className="fixed md:absolute z-10 left-0 md:left-1/2 md:-translate-x-1/2 w-screen min-h-96 md:w-[425px] aspect-square bg-base-content text-base-100 rounded-lg py-[1vh] px-[1vw] 
+            grid grid-rows-[1fr,auto] 
+          "
           initial={{ height: "0", opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: "0", opacity: 0 }}

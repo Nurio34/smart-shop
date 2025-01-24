@@ -10,10 +10,10 @@ function ToggleButton({
     <button
       type="button"
       aria-label="Menu"
-      className="btn btn-sm bg-base-300 text-base-content"
+      className="btn btn-sm btn-ghost text-base-content"
       onClick={() => setIsOpen((prev) => !prev)}
     >
-      <TfiMenu />
+      <TfiMenu size={20} />
     </button>
   );
 }

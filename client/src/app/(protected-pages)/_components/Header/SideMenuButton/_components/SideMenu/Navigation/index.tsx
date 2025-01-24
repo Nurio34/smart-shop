@@ -51,6 +51,11 @@ function Navigation({ role }: { role: string }) {
 
   const sellerNavigation = [
     {
+      name: "home",
+      href: "/home",
+      icon: <TbHomeFilled size={24} />,
+    },
+    {
       name: "dashboard",
       href: "/dashboard",
       icon: <RiDashboardFill size={24} />,

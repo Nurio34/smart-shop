@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Hero() {
   return (
     <section
@@ -13,9 +15,12 @@ function Hero() {
           Experience personalized shopping with our emotional AI assistant that
           understands your preferences and mood.
         </p>
-        <button className="bg-primary-content text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300">
+        <Link
+          href={"/home"}
+          className="bg-primary-content text-primary px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition duration-300"
+        >
           Start Shopping
-        </button>
+        </Link>
       </div>
       <div
         className="relative h-full w-full rounded-lg"

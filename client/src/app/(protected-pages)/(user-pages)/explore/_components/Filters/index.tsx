@@ -10,7 +10,7 @@ function Filters() {
   return (
     <form
       action={filterProducts}
-      className="flex flex-wrap justify-start items-center gap-2 shadow-md pb-[1vh]"
+      className=" flex flex-wrap justify-start items-center gap-x-[1vw] gap-y-[1vh] shadow-md pb-[1vh]"
     >
       <Categories />
       <PriceRange />
