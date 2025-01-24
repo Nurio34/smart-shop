@@ -1,11 +1,11 @@
-import { Product } from "@prisma/client";
 import Images from "../_components/Images";
 import Details from "../_components/Details";
 import ReturnPolicy from "../_components/ReturnPolicy";
 import Tags from "../_components/Tags";
 import ActionButtons from "../_components/ActionButtons";
+import { ProductWithImages } from ".";
 
-function PageContainerClient({ product }: { product: Product }) {
+function PageContainerClient({ product }: { product: ProductWithImages }) {
   return (
     <main className="max-w-6xl mx-auto p-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">

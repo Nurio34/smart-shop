@@ -2,15 +2,16 @@ import { Product } from "@prisma/client";
 import ThumbnailButton from "./ThumbnailButton";
 import Gallery from "./Gallery";
 import { Dispatch, SetStateAction, useState } from "react";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function ThumbnailContainer({
   productControls,
   setProductControls,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
-  const { thumbnail, images, title } = productControls;
+  const { thumbnail, title, images } = productControls;
 
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 

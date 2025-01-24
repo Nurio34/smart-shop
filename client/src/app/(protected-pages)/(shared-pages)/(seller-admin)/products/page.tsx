@@ -16,7 +16,11 @@ async function ProductsPage() {
     include: {
       seller: {
         include: {
-          products: true,
+          products: {
+            include: {
+              images: true,
+            },
+          },
         },
       },
     },

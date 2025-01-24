@@ -1,11 +1,16 @@
 "use client";
 
-import { Product as ProductType } from "@prisma/client";
 import Product from "./_components/Product";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
-function SellerProducts({ products }: { products: ProductType[] | undefined }) {
+function SellerProducts({
+  products,
+}: {
+  products: ProductWithImages[] | undefined;
+}) {
   if (!products)
     return <p>You have no products yet. Fire your first product !</p>;
+  console.log(products);
 
   return (
     <main>

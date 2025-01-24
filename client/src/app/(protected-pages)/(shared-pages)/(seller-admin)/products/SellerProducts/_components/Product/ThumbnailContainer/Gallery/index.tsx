@@ -6,6 +6,10 @@ import CloseGalleryButton from "./CloseGalleryButton";
 import ImageScreen from "./ImageScreen";
 import ImagesList from "./ImagesList";
 import { Product } from "@prisma/client";
+import {
+  ImageType,
+  ProductWithImages,
+} from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function Gallery({
   thumbnail,
@@ -17,14 +21,14 @@ function Gallery({
   setProductControls,
 }: {
   thumbnail: string;
-  images: string[];
+  images: ImageType[];
   title: string;
   isGalleryOpen: boolean;
   setIsGalleryOpen: Dispatch<SetStateAction<boolean>>;
   productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
-  const allImages = [thumbnail].concat(images);
+  const allImages = images.map((image) => image.url).concat(thumbnail);
 
   const [currentImage, setCurrentImage] = useState(allImages[0]);
 

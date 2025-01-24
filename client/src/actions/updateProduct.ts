@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { Product } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 interface ReturnType {
   status: string;
@@ -20,5 +21,7 @@ export const updateProduct = async (product: Product): Promise<ReturnType> => {
   } catch (error) {
     console.log(error);
     return { status: "error" };
+  } finally {
+    revalidatePath("/products");
   }
 };

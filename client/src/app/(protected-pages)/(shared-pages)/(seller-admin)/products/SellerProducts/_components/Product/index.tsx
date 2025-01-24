@@ -4,9 +4,11 @@ import Controls from "./Controls";
 import { useState } from "react";
 import DeleteProductContainer from "./DeleteProductContainer";
 import ThumbnailContainer from "./ThumbnailContainer";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
-function Product({ product }: { product: ProductType }) {
-  const [productControls, setProductControls] = useState<ProductType>(product);
+function Product({ product }: { product: ProductWithImages }) {
+  const [productControls, setProductControls] =
+    useState<ProductWithImages>(product);
   const anyChangeMade =
     JSON.stringify(product) === JSON.stringify(productControls);
 

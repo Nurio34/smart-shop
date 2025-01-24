@@ -14,8 +14,6 @@ function ImagesList({
   setCurrentImage: Dispatch<SetStateAction<string>>;
   currentImage: string;
 }) {
-  console.log(allImages);
-
   return (
     <ul
       className="flex justify-start md:justify-center gap-x-[1vw] py-[1vh]

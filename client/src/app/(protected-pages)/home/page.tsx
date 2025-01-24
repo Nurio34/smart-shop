@@ -5,6 +5,7 @@ import {
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Main from "./_components/Main";
+import { handleImages } from "@/actions/handleImages";
 
 async function HomePage() {
   const clerkUser = await currentUser();
@@ -20,6 +21,8 @@ async function HomePage() {
     return redirect("/");
   }
   //! *******************************
+
+  //await handleImages();
 
   return <Main />;
 }

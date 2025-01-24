@@ -77,12 +77,20 @@ model Product {
   reviews              Review[]
   returnPolicy         String
   minimumOrderQuantity Int
-  images               String[]
+  images               Image[]
   thumbnail            String
   orderItems           OrderItem[]
   createdAt            DateTime    @default(now())
   updatedAt            DateTime    @updatedAt
   history              User[]      @relation("UserHistory")
+}
+
+model Image {
+  id        String  @id @default(cuid())
+  public_id String
+  url       String
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Review {

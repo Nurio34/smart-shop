@@ -2,6 +2,7 @@ import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import SetAsThumbnail from "./SetAsThumbnail";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function ImageScreen({
   currentImage,
@@ -11,8 +12,8 @@ function ImageScreen({
 }: {
   currentImage: string;
   title: string;
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
   return (
     <div className="grid grid-cols-6 grid-rows-6">

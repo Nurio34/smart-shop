@@ -1,7 +1,8 @@
 import { Product } from "@prisma/client";
 import Image from "next/image";
+import { ProductWithImages } from "../../PageContainer";
 
-function Images({ product }: { product: Product }) {
+function Images({ product }: { product: ProductWithImages }) {
   return (
     <div className="space-y-4">
       <figure className=" relative w-full aspect-square rounded-lg shadow-lg border">
@@ -13,7 +14,11 @@ function Images({ product }: { product: Product }) {
             key={index}
             className="relative w-full aspect-square rounded-lg shadow-md border"
           >
-            <Image src={image} alt={`${product.title} - ${index + 1}`} fill />
+            <Image
+              src={image.url}
+              alt={`${product.title} - ${index + 1}`}
+              fill
+            />
           </figure>
         ))}
       </div>
