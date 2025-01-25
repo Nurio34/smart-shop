@@ -1,14 +1,13 @@
 import { updateProduct } from "@/actions/updateProduct";
-import { Product } from "@prisma/client";
-import { SetStateAction, Dispatch, useState } from "react";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
+import { useState } from "react";
+import "./index.css";
 
 function ApplyChanges({
   productControls,
-  setProductControls,
   anyChangeMade,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
   anyChangeMade: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +22,6 @@ function ApplyChanges({
         setError("Try Again !");
         return;
       }
-      setProductControls(response.product!);
     } catch (err) {
       setError("Try Again !");
       console.log(err);
@@ -35,11 +33,12 @@ function ApplyChanges({
   return (
     <button
       type="button"
-      className={`btn text-secondary-content
+      className={`btn text-secondary-content 
+        ${anyChangeMade && !isLoading ? "Highlight" : ""}
         ${error ? "btn-error" : "btn-success"}    
     `}
       onClick={applyChanges}
-      disabled={anyChangeMade || isLoading}
+      disabled={!anyChangeMade || isLoading}
     >
       {isLoading ? (
         <div className=" flex items-center gap-x-[0.5vw]">

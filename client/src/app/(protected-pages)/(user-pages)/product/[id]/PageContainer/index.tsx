@@ -13,6 +13,7 @@ export type ImageType = {
 
 export type ProductWithImages = Product & {
   images: ImageType[];
+  thumbnail: ImageType | null;
 };
 
 function PageContainer({ product }: { product: ProductWithImages }) {

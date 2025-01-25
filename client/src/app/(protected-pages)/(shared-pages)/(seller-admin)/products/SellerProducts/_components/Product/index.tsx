@@ -1,16 +1,15 @@
-import { Product as ProductType } from "@prisma/client";
 import Details from "./Details";
 import Controls from "./Controls";
 import { useState } from "react";
 import DeleteProductContainer from "./DeleteProductContainer";
 import ThumbnailContainer from "./ThumbnailContainer";
 import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
+import isEqual from "lodash/isEqual";
 
 function Product({ product }: { product: ProductWithImages }) {
   const [productControls, setProductControls] =
     useState<ProductWithImages>(product);
-  const anyChangeMade =
-    JSON.stringify(product) === JSON.stringify(productControls);
+  const anyChangeMade = !isEqual(product, productControls);
 
   return (
     <li

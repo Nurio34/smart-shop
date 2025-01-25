@@ -1,10 +1,10 @@
 "use client";
 
+import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { add, remove } from "@/store/slices/cart";
-import { Product } from "@prisma/client";
 
-function AddCart({ product }: { product: Product }) {
+function AddCart({ product }: { product: ProductWithSeller }) {
   const { cart } = useAppSelector((s) => s.cart);
   const isCartContainsThisProduct = cart.some((p) => p.id === product.id);
 

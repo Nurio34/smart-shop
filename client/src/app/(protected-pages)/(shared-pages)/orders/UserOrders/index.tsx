@@ -15,6 +15,7 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                   brand: true,
                 },
               },
+              thumbnail: true,
             },
           },
         },
@@ -69,7 +70,7 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                   >
                     <Link href={`/product/${item.productId}`}>
                       <Image
-                        src={item.product.thumbnail}
+                        src={item.product.thumbnail!.url}
                         alt={item.product.title}
                         width={80}
                         height={80}

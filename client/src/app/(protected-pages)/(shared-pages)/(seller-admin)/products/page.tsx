@@ -19,6 +19,7 @@ async function ProductsPage() {
           products: {
             include: {
               images: true,
+              thumbnail: true,
             },
           },
         },

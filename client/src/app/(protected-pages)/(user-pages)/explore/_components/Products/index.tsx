@@ -1,13 +1,15 @@
 "use client";
 
-import { Product as ProductType } from "@prisma/client";
 import { useEffect, useRef, useState } from "react";
 import ProductsContainer from "./ProductsContainer";
+import { ImageType } from "../../../product/[id]/PageContainer";
+import { Product as ProdcutType } from "@prisma/client";
 
-export type ProductWithSeller = ProductType & {
+export type ProductWithSeller = ProdcutType & {
   seller: {
     brand: string;
   };
+  thumbnail: ImageType | null;
 };
 
 function Products({ products }: { products: ProductWithSeller[] }) {

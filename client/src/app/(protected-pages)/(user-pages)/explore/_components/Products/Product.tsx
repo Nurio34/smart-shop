@@ -15,7 +15,7 @@ function Product({ product }: { product: ProductWithSeller }) {
         <h3 className="truncate font-semibold text-lg">{product.title}</h3>
         <figure className=" w-full aspect-square relative">
           <Image
-            src={product.thumbnail}
+            src={product.thumbnail!.url}
             alt={product.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

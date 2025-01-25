@@ -1,20 +1,20 @@
 import { SetStateAction, Dispatch } from "react";
 import Categories from "./Categories";
-import { Product } from "@prisma/client";
 import Discount from "./Discount";
 import Stock from "./Stock";
 import Brand from "./Brand";
 import ReturnPolicy from "./ReturnPolicy";
 import MinimumOrder from "./MinimumOrder";
 import Tags from "./Tags";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function Controls({
   productControls,
   setProductControls,
   anyChangeMade,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
   anyChangeMade: boolean;
 }) {
   return (

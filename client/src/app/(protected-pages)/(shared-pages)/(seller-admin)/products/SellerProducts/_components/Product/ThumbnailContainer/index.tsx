@@ -1,4 +1,3 @@
-import { Product } from "@prisma/client";
 import ThumbnailButton from "./ThumbnailButton";
 import Gallery from "./Gallery";
 import { Dispatch, SetStateAction, useState } from "react";

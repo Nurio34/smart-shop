@@ -1,3 +1,4 @@
+import { ImageType } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import Image from "next/image";
 import { SetStateAction } from "react";
 import { Dispatch } from "react";
@@ -7,7 +8,7 @@ function ThumbnailButton({
   title,
   setIsGalleryOpen,
 }: {
-  thumbnail: string;
+  thumbnail: ImageType | null;
   title: string;
   setIsGalleryOpen: Dispatch<SetStateAction<boolean>>;
 }) {
@@ -18,7 +19,7 @@ function ThumbnailButton({
       onClick={() => setIsGalleryOpen(true)}
     >
       <figure className=" w-full aspect-square relative">
-        <Image src={thumbnail} alt={title} fill />
+        <Image src={thumbnail!.url} alt={title} fill />
       </figure>
     </button>
   );

@@ -1,9 +1,9 @@
+import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
 import { useAppDispatch } from "@/store/hooks";
 import { add, clear } from "@/store/slices/cart";
-import { Product } from "@prisma/client";
 import { useRouter } from "next/navigation";
 
-function BuyNow({ product }: { product: Product }) {
+function BuyNow({ product }: { product: ProductWithSeller }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 

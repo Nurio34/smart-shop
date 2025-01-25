@@ -87,6 +87,7 @@ async function ExplorePage({
             brand: true,
           },
         },
+        thumbnail: true,
       },
     }),
   ]);

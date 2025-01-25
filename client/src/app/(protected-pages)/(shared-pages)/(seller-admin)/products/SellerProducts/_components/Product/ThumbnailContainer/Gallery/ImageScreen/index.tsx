@@ -1,8 +1,10 @@
-import { Product } from "@prisma/client";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import SetAsThumbnail from "./SetAsThumbnail";
-import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
+import {
+  ImageType,
+  ProductWithImages,
+} from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function ImageScreen({
   currentImage,
@@ -10,7 +12,7 @@ function ImageScreen({
   productControls,
   setProductControls,
 }: {
-  currentImage: string;
+  currentImage: ImageType;
   title: string;
   productControls: ProductWithImages;
   setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
@@ -22,7 +24,12 @@ function ImageScreen({
                 bg-base-100 rounded-xl
             "
       >
-        <Image src={currentImage} alt={title} fill />
+        <Image
+          src={currentImage.url}
+          alt={title}
+          fill
+          className="object-cover object-center"
+        />
       </figure>
       <SetAsThumbnail
         productControls={productControls}

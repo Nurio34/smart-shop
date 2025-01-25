@@ -6,7 +6,7 @@ function Details({ product }: { product: ProductWithQuantity }) {
     <>
       <div className="flex-shrink-0">
         <Image
-          src={product.thumbnail}
+          src={product.thumbnail!.url}
           alt={product.title}
           width={100}
           height={100}

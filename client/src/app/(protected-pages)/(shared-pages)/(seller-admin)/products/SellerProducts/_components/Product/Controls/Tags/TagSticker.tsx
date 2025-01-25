@@ -1,4 +1,4 @@
-import { Product } from "@prisma/client";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { Dispatch, SetStateAction, useState } from "react";
 import { GrFormClose } from "react-icons/gr";
 
@@ -7,7 +7,7 @@ function TagSticker({
   setProductControls,
 }: {
   tag: string;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
   const [isTagCancelButtonVisible, setIsTagCancelButtonVisible] =
     useState(false);

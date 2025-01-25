@@ -1,13 +1,13 @@
 import { fetchProductsByCategory } from "@/actions/fetchFiveProductsPerCategory";
-import { Product } from "@prisma/client";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 function Categories({
   productControls,
   setProductControls,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
   const [categories, setCategories] = useState<string[]>([]);
 

@@ -1,19 +1,18 @@
 import { SetStateAction, useEffect, useState } from "react";
-
-import { Product } from "@prisma/client";
 import { Dispatch } from "react";
 import { TiTickOutline } from "react-icons/ti";
 import { fetchAllTags } from "@/actions/fetchAllTags";
 import TagSticker from "./TagSticker";
 import ApplyChanges from "./ApplyChanges";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function Tags({
   productControls,
   setProductControls,
   anyChangeMade,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
   anyChangeMade: boolean;
 }) {
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -91,7 +90,6 @@ function Tags({
       </ul>
       <ApplyChanges
         productControls={productControls}
-        setProductControls={setProductControls}
         anyChangeMade={anyChangeMade}
       />
     </div>

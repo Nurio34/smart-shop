@@ -25,6 +25,7 @@ async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     where: { id },
     include: {
       images: true,
+      thumbnail: true,
     },
   });
 

@@ -1,5 +1,7 @@
-import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
-import { Product } from "@prisma/client";
+import {
+  ImageType,
+  ProductWithImages,
+} from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { Dispatch, SetStateAction } from "react";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa6";
 
@@ -10,15 +12,14 @@ function SetAsThumbnail({
 }: {
   productControls: ProductWithImages;
   setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
-  currentImage: string;
+  currentImage: ImageType;
 }) {
-  const isImageThumbnail = currentImage === productControls.thumbnail;
+  const isImageThumbnail = currentImage.url === productControls.thumbnail?.url;
 
   const setAsThumbnail = () => {
-    const oldThumbnail = productControls.thumbnail;
+    const oldThumbnail = productControls.thumbnail!;
     const newImages = productControls.images
-      .filter((image) => image.url !== currentImage)
-      .map((image) => image.url)
+      .filter((image) => image.url !== currentImage.url)
       .concat(oldThumbnail);
 
     setProductControls((pre) => ({

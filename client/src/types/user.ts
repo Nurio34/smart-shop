@@ -1,3 +1,4 @@
+import { ImageType } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import {
   Product as ProductType,
   Seller as SellerType,
@@ -8,8 +9,12 @@ export interface UserWithSeller extends UserType {
   seller: SellerType | null;
 }
 
+export interface ProductWithThumbnail extends ProductType {
+  thumbnail: ImageType | null;
+}
+
 export interface SellerWithProducts extends SellerType {
-  products: ProductType[];
+  products: ProductWithThumbnail[];
 }
 
 export interface UserWithSellerAndProducts extends UserType {

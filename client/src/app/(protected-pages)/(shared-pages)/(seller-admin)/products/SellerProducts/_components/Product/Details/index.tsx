@@ -1,12 +1,12 @@
-import { Product } from "@prisma/client";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { Dispatch, SetStateAction, useState } from "react";
 
 function Details({
   productControls,
   setProductControls,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
   const [controlsReadOnly, setControlsReadOnly] = useState({
     title: true,

@@ -5,7 +5,6 @@ import { Dispatch } from "react";
 import CloseGalleryButton from "./CloseGalleryButton";
 import ImageScreen from "./ImageScreen";
 import ImagesList from "./ImagesList";
-import { Product } from "@prisma/client";
 import {
   ImageType,
   ProductWithImages,
@@ -20,17 +19,17 @@ function Gallery({
   productControls,
   setProductControls,
 }: {
-  thumbnail: string;
+  thumbnail: ImageType | null;
   images: ImageType[];
   title: string;
   isGalleryOpen: boolean;
   setIsGalleryOpen: Dispatch<SetStateAction<boolean>>;
-  productControls: Product;
+  productControls: ProductWithImages;
   setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
-  const allImages = images.map((image) => image.url).concat(thumbnail);
+  const allImages = [thumbnail!].concat(images);
 
-  const [currentImage, setCurrentImage] = useState(allImages[0]);
+  const [currentImage, setCurrentImage] = useState<ImageType>(allImages[0]);
 
   useEffect(() => {
     if (isGalleryOpen) {
@@ -63,6 +62,8 @@ function Gallery({
             title={title}
             setCurrentImage={setCurrentImage}
             currentImage={currentImage}
+            setProductControls={setProductControls}
+            productControls={productControls}
           />
         </motion.div>
       )}

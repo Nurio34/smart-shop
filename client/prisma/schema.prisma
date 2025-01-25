@@ -78,7 +78,7 @@ model Product {
   returnPolicy         String
   minimumOrderQuantity Int
   images               Image[]
-  thumbnail            String
+  thumbnail            Thumbnail?
   orderItems           OrderItem[]
   createdAt            DateTime    @default(now())
   updatedAt            DateTime    @updatedAt
@@ -91,6 +91,14 @@ model Image {
   url       String
   productId String
   product   Product @relation(fields: [productId], references: [id])
+}
+
+model Thumbnail {
+  id        String  @id @default(cuid())
+  public_id String 
+  url       String
+  productId String @unique
+  product Product @relation(fields: [productId],references: [id])
 }
 
 model Review {

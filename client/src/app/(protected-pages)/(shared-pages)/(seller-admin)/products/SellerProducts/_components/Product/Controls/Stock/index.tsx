@@ -1,14 +1,13 @@
 import { SetStateAction } from "react";
-
-import { Product } from "@prisma/client";
 import { Dispatch } from "react";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 function Stock({
   productControls,
   setProductControls,
 }: {
-  productControls: Product;
-  setProductControls: Dispatch<SetStateAction<Product>>;
+  productControls: ProductWithImages;
+  setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
 }) {
   return (
     <label htmlFor="stock" className="grid gap-y-1 grow">

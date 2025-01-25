@@ -15,7 +15,11 @@ async function DashboardPage() {
     include: {
       seller: {
         include: {
-          products: true,
+          products: {
+            include: {
+              thumbnail: true,
+            },
+          },
         },
       },
     },

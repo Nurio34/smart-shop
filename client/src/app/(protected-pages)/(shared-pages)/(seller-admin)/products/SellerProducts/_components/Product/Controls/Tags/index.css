@@ -1,0 +1,9 @@
+.Highlight {
+  animation: highlight 2s linear infinite;
+}
+
+@keyframes highlight {
+  50% {
+    box-shadow: 0 0 5px green, 0 0 10px green, 0 0 15px green;
+  }
+}

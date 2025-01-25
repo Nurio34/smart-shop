@@ -1,7 +1,7 @@
 "use client";
 
-import Product from "./_components/Product";
 import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
+import Product from "./_components/Product";
 
 function SellerProducts({
   products,
@@ -10,7 +10,6 @@ function SellerProducts({
 }) {
   if (!products)
     return <p>You have no products yet. Fire your first product !</p>;
-  console.log(products);
 
   return (
     <main>
