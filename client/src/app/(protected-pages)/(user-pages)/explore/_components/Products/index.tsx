@@ -10,6 +10,7 @@ export type ProductWithSeller = ProdcutType & {
     brand: string;
   };
   thumbnail: ImageType | null;
+  images: ImageType[];
 };
 
 function Products({ products }: { products: ProductWithSeller[] }) {

@@ -16,7 +16,7 @@ function NotificationsModal({
           initial={{ height: "0", opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: "0", opacity: 0 }}
-          className=" absolute z-10 right-0 w-96 max-h-96 overflow-y-auto bg-base-300 text-base-content rounded-lg shadow-md py-[1vh] px-[1vw]"
+          className=" fixed md:absolute z-10 right-0 w-full md:w-96 max-h-96 overflow-y-auto bg-base-300 text-base-content rounded-lg shadow-md py-[1vh] px-[1vw]"
           style={{ scrollbarWidth: "thin" }}
         >
           {notifications.length === 0 ? (

@@ -35,6 +35,7 @@ export const fetchProductsByCategory = async (): Promise<
               select: { brand: true },
             },
             thumbnail: true,
+            images: true,
           },
         })
       )

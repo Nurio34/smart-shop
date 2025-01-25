@@ -1,7 +1,7 @@
-import { Product } from "@prisma/client";
 import Link from "next/link";
+import { ProductWithImages } from "../../PageContainer";
 
-function Tags({ product }: { product: Product }) {
+function Tags({ product }: { product: ProductWithImages }) {
   return (
     <div className="flex gap-2 mt-2">
       {product.tags.map((tag) => (

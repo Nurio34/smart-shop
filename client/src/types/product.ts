@@ -1,10 +1,4 @@
-import { Product as ProductType } from "@prisma/client";
-
-export interface ProductWithSeller extends ProductType {
-  seller: {
-    brand: string;
-  };
-}
+import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
 
 export interface CategorizedProductsType {
   category: string;

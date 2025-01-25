@@ -1,12 +1,12 @@
 "use server";
 
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { prisma } from "@/lib/prisma";
-import { Product } from "@prisma/client";
 
 export const getSearchedProducts = async (
   searchedKey: string,
   skip: number
-): Promise<Product[]> => {
+): Promise<ProductWithImages[]> => {
   try {
     const products = await prisma.product.findMany({
       where: {
@@ -14,6 +14,10 @@ export const getSearchedProducts = async (
           contains: searchedKey,
           mode: "insensitive",
         },
+      },
+      include: {
+        images: true,
+        thumbnail: true,
       },
       skip,
       take: 5,

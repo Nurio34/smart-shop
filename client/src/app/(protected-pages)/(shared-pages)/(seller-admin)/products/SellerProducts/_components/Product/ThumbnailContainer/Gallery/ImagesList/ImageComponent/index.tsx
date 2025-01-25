@@ -57,6 +57,7 @@ function ImageComponent({
         setProductControls={setProductControls}
         setCurrentImage={setCurrentImage}
         allImages={allImages}
+        index={index}
       />
     </li>
   );

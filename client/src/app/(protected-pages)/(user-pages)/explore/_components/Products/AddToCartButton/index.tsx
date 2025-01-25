@@ -1,8 +1,8 @@
 "use client";
 
 import ReduxProvider from "@/app/_globalComponents/ReduxProvider";
-import { ProductWithSeller } from "..";
 import Button from "./Button";
+import { ProductWithSeller } from "..";
 
 function AddToCartButton({ product }: { product: ProductWithSeller }) {
   return (

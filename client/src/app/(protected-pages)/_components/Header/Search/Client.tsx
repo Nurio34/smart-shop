@@ -1,13 +1,15 @@
 "use client";
 
 import { getSearchedProducts } from "@/actions/getSearchedProducts";
-import { Product } from "@prisma/client";
 import { useEffect, useState } from "react";
 import SearchedProducts from "./SearchedProducts";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
 export default function SearchClient() {
   const [searchedKey, setSearchedKey] = useState("");
-  const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
+  const [searchedProducts, setSearchedProducts] = useState<ProductWithImages[]>(
+    []
+  );
   const [skip, setSkip] = useState(0);
   const [isScrollHitBottom, setIsScrollHitBottom] = useState(false);
   const [isAnyProductsLeftToFetch, setIsAnyProductsLeftToFetch] =
@@ -40,7 +42,7 @@ export default function SearchClient() {
     } else {
       timeout = setTimeout(async () => {
         setSearchedProducts([]);
-      }, 1100);
+      }, 300);
     }
 
     return () => {
@@ -56,16 +58,12 @@ export default function SearchClient() {
 
   return (
     <>
-      <form
-        className=" w-full px-[1vw] flex items-center gap-[1vw] border rounded-full overflow-hidden shadow-md
-        
-      "
-      >
+      <form className=" w-full pr-[1vw] flex items-center gap-[1vw] border rounded-full overflow-hidden shadow-md">
         <input
           type="text"
           name="search"
           id="search"
-          className="h-full w-full focus:outline-none py-3 pl-[1vw]"
+          className="h-full w-full focus:outline-none py-3 pl-[2vw]"
           placeholder="Search product name ..."
           value={searchedKey}
           onChange={(e) => setSearchedKey(e.target.value)}

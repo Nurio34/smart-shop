@@ -10,7 +10,7 @@ function ProductsContainer({
 }) {
   return (
     <ul
-      className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-x-[2vw] gap-y-[2vh] items-center overflow-y-auto"
+      className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-x-[2vw] gap-y-[2vh] items-center overflow-y-auto py-[2vh] px-[2vw]"
       style={{
         maxHeight: sectionHeight,
         scrollbarWidth: "thin",

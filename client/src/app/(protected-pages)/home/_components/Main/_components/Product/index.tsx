@@ -1,25 +1,19 @@
+import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
 import Image from "next/image";
 import Link from "next/link";
-import { ProductWithSeller } from "@/types/product";
 
-function Product({
-  product,
-}: {
-  product: ProductWithSeller & {
-    thumbnail: { public_id: string; url: string };
-  };
-}) {
+function Product({ product }: { product: ProductWithSeller }) {
   return (
     <li
       className="overflow-hidden shadow-md p-[1vw] border rounded-md transition-all 
-      hover:shadow-md hover:border hover:border-primary hover:shadow-primary hover:scale-105
-    "
+        hover:shadow-md hover:border hover:border-primary hover:shadow-primary hover:scale-105
+      "
     >
       <Link href={`/product/${product.id}`}>
         <h3 className="truncate font-semibold text-lg">{product.title}</h3>
         <figure className=" w-full aspect-square relative">
           <Image
-            src={product.thumbnail.url}
+            src={product.thumbnail!.url}
             alt={product.title}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

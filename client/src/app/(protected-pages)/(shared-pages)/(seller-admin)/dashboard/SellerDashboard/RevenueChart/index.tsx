@@ -24,7 +24,7 @@ function RevenueChart({ monthlyRevenue }: RevenueChartProps) {
   const chartSeries = [
     {
       name: "Revenue",
-      data: monthlyRevenue.map((item) => item.revenue),
+      data: monthlyRevenue.map((item) => +item.revenue.toFixed(2)),
     },
   ];
 

@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { add, remove } from "@/store/slices/cart";
-import { ProductWithSeller } from "..";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 
-function Button({ product }: { product: ProductWithSeller }) {
+function Button({ product }: { product: ProductWithImages }) {
   const cart = useAppSelector((s) => s.cart);
   const dispatch = useAppDispatch();
   const isInCart = cart.cart.some((p) => p.id === product.id);

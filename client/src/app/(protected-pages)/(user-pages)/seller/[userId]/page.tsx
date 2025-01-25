@@ -39,6 +39,8 @@ async function SellerPage({ params }: { params: Promise<{ userId: string }> }) {
       products: {
         include: {
           seller: true,
+          thumbnail: true,
+          images: true,
         },
       },
     },
@@ -77,8 +79,8 @@ async function SellerPage({ params }: { params: Promise<{ userId: string }> }) {
             <li
               key={product.id}
               className="overflow-hidden shadow-md p-[1vw] border rounded-md transition-all
-           hover:scale-110 hover:-translate-y-1 hover:z-10 hover:shadow-xl hover:bg-base-100 hover:text-base-content
-           "
+                hover:shadow-md hover:border hover:border-primary hover:shadow-primary hover:scale-105
+              "
             >
               <Link href={`/product/${product.id}`}>
                 <h3 className="truncate font-semibold text-lg">
@@ -86,7 +88,7 @@ async function SellerPage({ params }: { params: Promise<{ userId: string }> }) {
                 </h3>
                 <figure className=" w-full aspect-square relative">
                   <Image
-                    src={product.thumbnail}
+                    src={product.thumbnail!.url}
                     alt={product.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

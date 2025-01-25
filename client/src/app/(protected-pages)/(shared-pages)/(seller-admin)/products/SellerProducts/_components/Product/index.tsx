@@ -14,7 +14,7 @@ function Product({ product }: { product: ProductWithImages }) {
   return (
     <li
       key={product.id}
-      className=" relative grid grid-cols-[auto,1fr] grid-rows-[1fr,auto] items-center gap-x-[1vw] justify-items-center border shadow-md rounded-lg py-[1vh] px-[1vw] transition-all
+      className=" relative grid grid-cols-[auto,1fr] md:grid-rows-[1fr,auto] items-center gap-x-[1vw] justify-items-center border shadow-md rounded-lg py-[1vh] px-[1vw] transition-all
         hover:border-primary hover:shadow-primary hover:shadow-lg
       "
     >

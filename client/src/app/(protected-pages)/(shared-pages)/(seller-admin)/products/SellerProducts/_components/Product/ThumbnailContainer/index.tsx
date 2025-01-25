@@ -15,7 +15,11 @@ function ThumbnailContainer({
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   return (
-    <div className="w-36 aspect-square border rounded-md border-primary/30 shadow-md shadow-primary/30">
+    <div
+      className="w-36 aspect-square border rounded-md border-primary/30 shadow-md shadow-primary/30
+        col-span-full md:col-span-1
+      "
+    >
       <ThumbnailButton
         thumbnail={thumbnail}
         title={title}

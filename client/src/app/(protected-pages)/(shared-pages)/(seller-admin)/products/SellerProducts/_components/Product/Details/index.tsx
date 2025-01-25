@@ -15,7 +15,11 @@ function Details({
   });
 
   return (
-    <form className=" py-[1vh] px-[1vw]  justify-self-stretch">
+    <form
+      className=" py-[1vh] px-[1vw]  justify-self-stretch
+      col-span-full md:col-span-1
+    "
+    >
       <input
         type="text"
         name="title"

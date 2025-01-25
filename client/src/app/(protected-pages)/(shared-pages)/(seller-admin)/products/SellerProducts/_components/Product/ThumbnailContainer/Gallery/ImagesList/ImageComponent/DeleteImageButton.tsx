@@ -14,12 +14,14 @@ function DeleteImageButton({
   setProductControls,
   setCurrentImage,
   allImages,
+  index,
 }: {
   isCurrentImage: boolean;
   image: ImageType;
   setProductControls: Dispatch<SetStateAction<ProductWithImages>>;
   setCurrentImage: Dispatch<SetStateAction<ImageType>>;
   allImages: ImageType[];
+  index: number;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,7 +50,7 @@ function DeleteImageButton({
 
   return (
     <>
-      {isCurrentImage && (
+      {isCurrentImage && index !== 0 && (
         <button
           type="button"
           className="absolute z-10 btn btn-xs btn-circle btn-error -top-3 -right-3"

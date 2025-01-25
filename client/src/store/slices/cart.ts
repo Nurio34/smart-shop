@@ -1,6 +1,8 @@
 import { OrderErrorsType } from "@/actions/order/checkStocksAndMinOrderQuantityAction";
-import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
-import { ImageType } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
+import {
+  ImageType,
+  ProductWithImages,
+} from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { Product } from "@prisma/client";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
@@ -29,7 +31,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<ProductWithSeller>) => {
+    add: (state, action: PayloadAction<ProductWithImages>) => {
       const product = { ...action.payload, quantity: 1 };
       state.cart.push(product);
       state.total = +state.cart

@@ -4,14 +4,14 @@ import { ProductWithImages } from "../../PageContainer";
 function Images({ product }: { product: ProductWithImages }) {
   return (
     <div className="space-y-4">
-      <figure className=" relative w-full aspect-square rounded-lg shadow-lg border">
+      <figure className=" relative w-full aspect-square rounded-lg shadow-lg border overflow-hidden">
         <Image src={product.thumbnail!.url} alt={product.title} fill />
       </figure>
       <div className="grid grid-cols-3 gap-4">
         {product.images.map((image, index) => (
           <figure
             key={index}
-            className="relative w-full aspect-square rounded-lg shadow-md border"
+            className="relative w-full aspect-square rounded-lg shadow-md border overflow-hidden"
           >
             <Image
               src={image.url}

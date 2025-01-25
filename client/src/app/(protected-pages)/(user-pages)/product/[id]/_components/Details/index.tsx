@@ -1,6 +1,6 @@
-import { Product } from "@prisma/client";
+import { ProductWithImages } from "../../PageContainer";
 
-function Details({ product }: { product: Product }) {
+function Details({ product }: { product: ProductWithImages }) {
   return (
     <>
       <h1 className="text-2xl font-bold ">{product.title}</h1>

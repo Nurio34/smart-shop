@@ -1,8 +1,8 @@
-import { Product } from "@prisma/client";
+import { ProductWithImages } from "@/app/(protected-pages)/(user-pages)/product/[id]/PageContainer";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { SetStateAction, UIEvent } from "react";
+import { SetStateAction, UIEvent, useEffect } from "react";
 import { Dispatch } from "react";
 
 function SearchedProducts({
@@ -13,7 +13,7 @@ function SearchedProducts({
   setIsScrollHitBottom,
   isAnyProductsLeftToFetch,
 }: {
-  searchedProducts: Product[];
+  searchedProducts: ProductWithImages[];
   setSearchedKey: Dispatch<SetStateAction<string>>;
   setSkip: Dispatch<SetStateAction<number>>;
   isScrollHitBottom: boolean;
@@ -30,6 +30,14 @@ function SearchedProducts({
       setSkip((pre) => pre + 5);
     }
   };
+
+  useEffect(() => {
+    if (searchedProducts.length > 0) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [searchedProducts]);
 
   return (
     <AnimatePresence>
@@ -54,7 +62,11 @@ function SearchedProducts({
                 onClick={() => setSearchedKey("")}
               >
                 <figure className=" relative w-20 aspect-square">
-                  <Image src={product.thumbnail} alt={product.title} fill />
+                  <Image
+                    src={product.thumbnail!.url}
+                    alt={product.title}
+                    fill
+                  />
                 </figure>
                 <div>
                   <h2 className=" text-lg font-bold">{product.title}</h2>

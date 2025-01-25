@@ -1,9 +1,9 @@
-import { ProductWithSeller } from "@/app/(protected-pages)/(user-pages)/explore/_components/Products";
 import { useAppDispatch } from "@/store/hooks";
 import { add, clear } from "@/store/slices/cart";
 import { useRouter } from "next/navigation";
+import { ProductWithImages } from "../../PageContainer";
 
-function BuyNow({ product }: { product: ProductWithSeller }) {
+function BuyNow({ product }: { product: ProductWithImages }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
 

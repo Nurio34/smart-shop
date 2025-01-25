@@ -1,10 +1,10 @@
 "use client";
 
-import { Product } from "@prisma/client";
 import BuyNow from "./BuyNow";
 import AddCart from "./AddCart";
+import { ProductWithImages } from "../../PageContainer";
 
-function ActionButtons({ product }: { product: Product }) {
+function ActionButtons({ product }: { product: ProductWithImages }) {
   return (
     <div className="mt-4 flex gap-4">
       <BuyNow product={product} />

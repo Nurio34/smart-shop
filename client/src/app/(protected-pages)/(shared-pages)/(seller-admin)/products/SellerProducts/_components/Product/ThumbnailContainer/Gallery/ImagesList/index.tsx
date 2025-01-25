@@ -76,7 +76,7 @@ function ImagesList({
       ref={DivRef}
       className={`w-full flex ${
         isDivOverflowed ? "justify-start" : "justify-center"
-      }  overflow-x-auto py-[2vh] px-4`}
+      }  overflow-x-auto py-[6vh] px-4`}
       style={{ scrollbarWidth: "thin" }}
     >
       <ul
