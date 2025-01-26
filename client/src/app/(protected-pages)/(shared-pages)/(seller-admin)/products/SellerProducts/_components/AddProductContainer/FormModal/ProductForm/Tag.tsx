@@ -37,7 +37,7 @@ function Tag({
         {...register("tags")}
         list="tags"
         id="tag"
-        className="input text-base-content input-bordered w-full"
+        className="input input-sm md:input-md text-base-content input-bordered w-full"
         placeholder="Select or enter a tag"
       />
       <datalist id="tags">

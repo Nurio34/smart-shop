@@ -39,7 +39,7 @@ function Category({
         {...register("category")}
         list="categories"
         id="category"
-        className="input text-base-content input-bordered w-full"
+        className="input input-sm md:input-md text-base-content input-bordered w-full"
         placeholder="Select or enter a category"
       />
       <datalist id="categories">

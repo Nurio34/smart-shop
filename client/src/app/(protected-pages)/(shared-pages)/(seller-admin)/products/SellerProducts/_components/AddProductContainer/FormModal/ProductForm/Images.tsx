@@ -16,7 +16,7 @@ function Images({
       <input
         {...register("images")}
         type="file"
-        className="file-input file-input-bordered w-full text-base-content"
+        className="file-input file-input-sm md:file-input-md file-input-bordered w-full text-base-content"
         multiple
         accept="image/*"
       />

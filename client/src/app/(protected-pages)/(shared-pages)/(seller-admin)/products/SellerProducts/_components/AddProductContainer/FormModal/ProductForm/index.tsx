@@ -97,7 +97,9 @@ const ProductForm: React.FC = () => {
     thumbnail: null,
     images: null,
   });
-  const [isGalleryOpenButtonVisible, setIsGalleryOpenButtonVisible] =
+  const [isImagesSavingToCloudinary, setIsImagesSavingToCloudinary] =
+    useState(false);
+  const [isImagesSavedToCloudinary, setIsImagesSavedToCloudinary] =
     useState(false);
   const [cloudinaryImages, setCloudinaryImages] =
     useState<CloudinaryImagesType>({ thumbnail: null, images: null });
@@ -108,7 +110,6 @@ const ProductForm: React.FC = () => {
     const newThumbnail = watchList.thumbnail?.[0] || null;
     const newImages = watchList.images || null;
 
-    // Only update state if values have actually changed
     if (images.thumbnail !== newThumbnail || images.images !== newImages) {
       setImages({
         thumbnail: newThumbnail,
@@ -154,6 +155,7 @@ const ProductForm: React.FC = () => {
     };
 
     if (images.thumbnail && images.images) {
+      setIsImagesSavingToCloudinary(true);
       //! *** save thumbnail to cloudinary ***
       const thumbnail = images.thumbnail;
       saveThumnailToCloudinary(thumbnail);
@@ -167,7 +169,8 @@ const ProductForm: React.FC = () => {
 
   useEffect(() => {
     if (cloudinaryImages.thumbnail && cloudinaryImages.images) {
-      setIsGalleryOpenButtonVisible(true);
+      setIsImagesSavingToCloudinary(false);
+      setIsImagesSavedToCloudinary(true);
     }
   }, [cloudinaryImages]);
 
@@ -191,7 +194,8 @@ const ProductForm: React.FC = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" justify-self-center w-1/2 min-w-80 flex flex-col gap-y-[1vh] overflow-y-auto "
+      className=" justify-self-center w-1/2 min-w-80 flex flex-col gap-y-[1vh] overflow-y-auto px-[1vw] pb-[3vh] mb-[4vh]"
+      style={{ scrollbarWidth: "none" }}
     >
       {/* Title */}
       <div>
@@ -199,7 +203,7 @@ const ProductForm: React.FC = () => {
         <input
           {...register("title")}
           type="text"
-          className="input text-base-content input-bordered w-full"
+          className="input input-sm md:input-md text-base-content input-bordered w-full"
           placeholder="Enter product title"
         />
         {errors.title && (
@@ -220,21 +224,21 @@ const ProductForm: React.FC = () => {
         )}
       </div>
 
-      <div className="flex items-center gap-x-[1vw]">
+      <div className="flex items-center gap-x-[2vw]">
         {/* Category */}
         <Category register={register} errors={errors} />
         {/* Tags */}
         <Tag register={register} errors={errors} />
       </div>
 
-      <div className="flex items-center gap-x-[1vw] flex-wrap">
+      <div className="flex items-center gap-x-[1vw] gap-y-[1vh] flex-wrap">
         {/* Price */}
         <div className="grow">
           <label className="block font-semibold mb-1">Price</label>
           <input
             {...register("price", { valueAsNumber: true })}
             type="number"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter product price"
           />
           {errors.price && (
@@ -250,7 +254,7 @@ const ProductForm: React.FC = () => {
           <input
             {...register("discountPercentage", { valueAsNumber: true })}
             type="number"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter discount percentage"
           />
           {errors.discountPercentage && (
@@ -266,7 +270,7 @@ const ProductForm: React.FC = () => {
           <input
             {...register("stock", { valueAsNumber: true })}
             type="number"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter product stock"
           />
           {errors.stock && (
@@ -275,14 +279,14 @@ const ProductForm: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex items-center gap-x-[1vw] flex-wrap">
+      <div className="flex items-center gap-x-[1vw] gap-y-[1vh] flex-wrap">
         {/* Brand */}
         <div className="grow">
           <label className="block font-semibold mb-1">Brand</label>
           <input
             {...register("brand")}
             type="text"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter product brand"
           />
           {errors.brand && (
@@ -296,7 +300,7 @@ const ProductForm: React.FC = () => {
           <input
             {...register("returnPolicy")}
             type="text"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter return policy"
           />
           {errors.returnPolicy && (
@@ -314,7 +318,7 @@ const ProductForm: React.FC = () => {
           <input
             {...register("minimumOrderQuantity", { valueAsNumber: true })}
             type="number"
-            className="input text-base-content input-bordered w-full"
+            className="input input-sm md:input-md text-base-content input-bordered w-full"
             placeholder="Enter minimum order quantity"
           />
           {errors.minimumOrderQuantity && (
@@ -332,13 +336,16 @@ const ProductForm: React.FC = () => {
       <Thumbnail register={register} errors={errors} />
 
       {/* Galley Open Button */}
-      <GalleyContainer
-        isGalleryOpenButtonVisible={isGalleryOpenButtonVisible}
-        cloudinaryImages={cloudinaryImages}
-      />
+      <div className="grid gap-y-[2vh] py-[1vh]">
+        <GalleyContainer
+          isImagesSavingToCloudinary={isImagesSavingToCloudinary}
+          isImagesSavedToCloudinary={isImagesSavedToCloudinary}
+          cloudinaryImages={cloudinaryImages}
+        />
 
-      {/* Submit Button */}
-      <SubmitButton isSubmitting={isSubmitting} error={error} />
+        {/* Submit Button */}
+        <SubmitButton isSubmitting={isSubmitting} error={error} />
+      </div>
     </form>
   );
 };

@@ -3,23 +3,36 @@ import Gallery from "./Gallery";
 import { CloudinaryImagesType } from "..";
 
 function GalleyContainer({
-  isGalleryOpenButtonVisible,
+  isImagesSavingToCloudinary,
+  isImagesSavedToCloudinary,
   cloudinaryImages,
 }: {
-  isGalleryOpenButtonVisible: boolean;
+  isImagesSavingToCloudinary: boolean;
+  isImagesSavedToCloudinary: boolean;
   cloudinaryImages: CloudinaryImagesType;
 }) {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
+  const buttonVisibleCondition =
+    isImagesSavingToCloudinary || isImagesSavedToCloudinary;
+
   return (
     <div>
-      {isGalleryOpenButtonVisible && (
+      {buttonVisibleCondition && (
         <button
           type="button"
-          className="btn btn-warning w-full"
+          className="btn btn-sm md:btn-md btn-warning w-full disabled:btn-outline"
+          disabled={!isImagesSavedToCloudinary}
           onClick={() => setIsGalleryOpen(true)}
         >
-          Edit Images
+          {isImagesSavingToCloudinary ? (
+            <div className="flex items-center gap-x-[0.5vw]">
+              <p>Preparing Images</p>
+              <span className="loading loading-spinner text-warning"></span>
+            </div>
+          ) : (
+            "Edit Images"
+          )}
         </button>
       )}
       <Gallery

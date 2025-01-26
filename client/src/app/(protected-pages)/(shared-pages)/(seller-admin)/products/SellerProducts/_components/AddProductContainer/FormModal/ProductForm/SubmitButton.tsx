@@ -8,7 +8,7 @@ function SubmitButton({
   return (
     <button
       type="submit"
-      className={`btn ${error ? "btn-error" : "btn-primary"}`}
+      className={`btn btn-sm md:btn-md ${error ? "btn-error" : "btn-primary"}`}
       disabled={isSubmitting}
     >
       {isSubmitting ? (
