@@ -11,6 +11,8 @@ import Images from "./Images";
 import { createProduct } from "@/actions/createProduct";
 import SubmitButton from "./SubmitButton";
 import { fileToBase64 } from "@/utils/fileToBase64";
+import { saveImage, saveImages } from "@/actions/cloudinaryActions";
+import GalleyContainer from "./GalleryContainer";
 
 // Define Zod schema for validation
 export const ProductSchema = z.object({
@@ -32,11 +34,39 @@ export const ProductSchema = z.object({
     .number()
     .int()
     .positive("Minimum order quantity must be a positive integer"),
-  thumbnail: z.instanceof(FileList),
-  images: z.instanceof(FileList),
+  thumbnail: z
+    .instanceof(FileList)
+    .refine(
+      (fileList: FileList) => fileList.length > 0,
+      "Thumbnail must be provided"
+    ),
+  images: z
+    .instanceof(FileList)
+    .refine(
+      (fileList: FileList) => fileList.length > 0,
+      "At least one image must be provided"
+    ),
 });
 
 export type ProductFormType = z.infer<typeof ProductSchema>;
+
+interface ImagesStateType {
+  thumbnail: File | null;
+  images: FileList | null;
+}
+
+export interface CloudinaryImageType {
+  public_id: string | null;
+  url: string | null;
+  secure_url: string | null;
+  height: number | null;
+  width: number | null;
+}
+
+export interface CloudinaryImagesType {
+  thumbnail: CloudinaryImageType | null;
+  images: CloudinaryImageType[] | null;
+}
 
 const ProductForm: React.FC = () => {
   const {
@@ -63,7 +93,83 @@ const ProductForm: React.FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  console.log({ isSubmitting });
+  const [images, setImages] = useState<ImagesStateType>({
+    thumbnail: null,
+    images: null,
+  });
+  const [isGalleryOpenButtonVisible, setIsGalleryOpenButtonVisible] =
+    useState(false);
+  const [cloudinaryImages, setCloudinaryImages] =
+    useState<CloudinaryImagesType>({ thumbnail: null, images: null });
+
+  const watchList = watch();
+
+  useEffect(() => {
+    const newThumbnail = watchList.thumbnail?.[0] || null;
+    const newImages = watchList.images || null;
+
+    // Only update state if values have actually changed
+    if (images.thumbnail !== newThumbnail || images.images !== newImages) {
+      setImages({
+        thumbnail: newThumbnail,
+        images: newImages,
+      });
+    }
+  }, [watchList, images]);
+
+  useEffect(() => {
+    const saveThumnailToCloudinary = async (thumbnailFile: File) => {
+      try {
+        const base64Thumnnail = await fileToBase64(thumbnailFile);
+        const savedThumbnailResponse = await saveImage(base64Thumnnail);
+
+        if (savedThumbnailResponse.status === "success") {
+          setCloudinaryImages((prev) => ({
+            ...prev,
+            thumbnail: savedThumbnailResponse,
+          }));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const saveProductImagesToCloudinary = async (productImages: FileList) => {
+      try {
+        const base64ProductImages = await Promise.all(
+          Object.values(productImages).map((file) => fileToBase64(file))
+        );
+        const savedProductImagesResponse = await saveImages(
+          base64ProductImages
+        );
+        if (savedProductImagesResponse.status === "success") {
+          setCloudinaryImages((prev) => ({
+            ...prev,
+            images: savedProductImagesResponse.returns,
+          }));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (images.thumbnail && images.images) {
+      //! *** save thumbnail to cloudinary ***
+      const thumbnail = images.thumbnail;
+      saveThumnailToCloudinary(thumbnail);
+      //! ***
+
+      //! *** save images to cloudinary ***
+      const productImages = images.images;
+      saveProductImagesToCloudinary(productImages);
+    }
+  }, [images]);
+
+  useEffect(() => {
+    if (cloudinaryImages.thumbnail && cloudinaryImages.images) {
+      setIsGalleryOpenButtonVisible(true);
+    }
+  }, [cloudinaryImages]);
 
   const onSubmit = async (data: ProductFormType) => {
     setIsSubmitting(true);
@@ -73,9 +179,8 @@ const ProductForm: React.FC = () => {
 
       console.log(newProductResponse);
       if (newProductResponse.status === "error") return setError("Try Again !");
-
-      const base64Thumnnail = await fileToBase64(data.thumbnail);
-      //const savedThumbnailResponse = await saveThumbnailToCloudinary(data.)
+      //! *** reset ***
+      reset();
     } catch (error) {
       console.log(error);
     } finally {
@@ -220,11 +325,17 @@ const ProductForm: React.FC = () => {
         </div>
       </div>
 
+      {/* Images */}
+      <Images register={register} errors={errors} />
+
       {/* Thumbnail */}
       <Thumbnail register={register} errors={errors} />
 
-      {/* Images */}
-      <Images register={register} errors={errors} />
+      {/* Galley Open Button */}
+      <GalleyContainer
+        isGalleryOpenButtonVisible={isGalleryOpenButtonVisible}
+        cloudinaryImages={cloudinaryImages}
+      />
 
       {/* Submit Button */}
       <SubmitButton isSubmitting={isSubmitting} error={error} />

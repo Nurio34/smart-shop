@@ -1,7 +1,6 @@
 "use server";
 
 import { ProductFormType } from "@/app/(protected-pages)/(shared-pages)/(seller-admin)/products/SellerProducts/_components/AddProductContainer/FormModal/ProductForm";
-import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -20,6 +19,10 @@ export const createProduct = async (
   if (!clerkUser) return redirect("/home");
 
   const clerkId = clerkUser.id;
+
+  //! *** data ***
+  console.log(data, clerkId);
+  //! ***
 
   try {
     //const newProduct = await prisma.product.create({
