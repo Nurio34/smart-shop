@@ -4,7 +4,7 @@ import { PiShieldCheckBold } from "react-icons/pi";
 import { PreserveTransformationsType } from "../..";
 import ColorComponent from "./ColorComponent";
 
-interface TintType {
+export interface TintType {
   value: string;
   colors: string[];
 }
@@ -29,36 +29,38 @@ function Tint({
   }, [tint]);
 
   return (
-    <div className="grid grid-cols-2 items-center gap-x-[1vw]">
-      <label htmlFor="tint grow">
-        <p>Tint</p>
-        <input
-          type="range"
-          name="tint"
-          id="tint"
-          min={0}
-          max={100}
-          value={tint.value}
-          onChange={(e) => {
-            setTint((prev) => ({ ...prev, value: e.target.value }));
-          }}
-        />
-      </label>
-      <div className="grow grid gap-y-[1vh] gap-x-[1vw] grid-cols-3">
-        <label htmlFor="color">
-          <p>Color</p>
+    <div className="grid items-center gap-y-[1vh] bg-base-content text-base-100 py-[1vh] px-[1vw] rounded-md">
+      <div className="grid items-center grid-cols-2">
+        <label htmlFor="tint grow">
+          <p className=" font-semibold">Tint</p>
+          <input
+            type="range"
+            name="tint"
+            id="tint"
+            step={5}
+            min={0}
+            max={100}
+            value={tint.value}
+            onChange={(e) => {
+              setTint((prev) => ({ ...prev, value: e.target.value }));
+            }}
+          />
+        </label>
+        <p className=" text-lg justify-self-center">{tint.value}</p>
+      </div>
+
+      <div className="grid grid-cols-2 gap-x-[1vw] justify-between items-center">
+        <label htmlFor="color" className="grid justify-items-center">
+          <p className=" font-semibold">Color</p>
           <input
             type="color"
             name="color"
             id="color"
+            className=" w-[27px]"
             value={color}
             onChange={(e) => setColor(e.target.value)}
           />
         </label>
-        <div
-          className="w-full h-full border-2 rounded-md"
-          style={{ backgroundColor: color }}
-        ></div>
         {color && (
           <button
             type="button"
@@ -72,9 +74,16 @@ function Tint({
           </button>
         )}
       </div>
-      <ul className="flex items-center gap-x-[2vw] py-[1vh] ">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(27px,1fr))] gap-x-[2vw] gap-y-[2vh] py-[1vh] ">
         {tint.colors.map((color, index) => {
-          return <ColorComponent key={`${color}-${index}`} color={color} />;
+          return (
+            <ColorComponent
+              key={`${color}-${index}`}
+              index={index}
+              tint={tint}
+              setTint={setTint}
+            />
+          );
         })}
       </ul>
     </div>

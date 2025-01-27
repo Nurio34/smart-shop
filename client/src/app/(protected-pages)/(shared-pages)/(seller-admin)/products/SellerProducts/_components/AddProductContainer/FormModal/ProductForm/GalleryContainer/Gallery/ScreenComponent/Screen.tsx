@@ -13,8 +13,6 @@ function Screen({
 
   if (!height || !public_id || !secure_url || !url || !width) return;
 
-  const aspectRatio = width! / height!;
-
   const imageUrl = getCldImageUrl({
     src: secure_url,
     ...preserveTransformations,
@@ -22,9 +20,10 @@ function Screen({
   console.log(imageUrl);
 
   return (
-    <figure className="relative w-full h-full" style={{ aspectRatio }}>
+    <figure className="relative w-full h-full">
       <CldImage
         fill
+        className="object-cover"
         src={public_id}
         sizes="(max-width: 768px) 100vw,
         (max-width: 1200px) 50vw,

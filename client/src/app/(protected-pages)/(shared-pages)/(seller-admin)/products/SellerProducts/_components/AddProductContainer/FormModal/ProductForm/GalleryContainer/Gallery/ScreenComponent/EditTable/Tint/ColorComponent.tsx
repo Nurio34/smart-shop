@@ -1,17 +1,56 @@
+import { SetStateAction, useState } from "react";
+import { Dispatch } from "react";
 import { GrFormClose } from "react-icons/gr";
+import { TintType } from ".";
 
-function ColorComponent({ color }: { color: string }) {
+function ColorComponent({
+  tint,
+  index,
+  setTint,
+}: {
+  tint: TintType;
+  index: number;
+  setTint: Dispatch<SetStateAction<TintType>>;
+}) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <li
-      className=" w-9 aspect-square rounded-sm relative"
-      style={{ backgroundColor: color }}
+      className="relative"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <button
-        type="button"
-        className="btn btn-xs btn-circle btn-error absolute -top-3 -right-3"
-      >
-        <GrFormClose />
-      </button>
+      <input
+        type="color"
+        name={`color-${index}`}
+        id={`color-${index}`}
+        className="w-[27px]"
+        value={tint.colors[index]}
+        onChange={(e) => {
+          setTint((prev) => ({
+            ...prev,
+            colors: prev.colors.map((color, ind) => {
+              if (ind === index) return e.target.value;
+
+              return color;
+            }),
+          }));
+        }}
+      />
+      {isHovered && (
+        <button
+          type="button"
+          className="btn btn-xs btn-circle btn-error absolute -top-3 -right-3"
+          onClick={() =>
+            setTint((prev) => ({
+              ...prev,
+              colors: prev.colors.filter((_, ind) => ind !== index),
+            }))
+          }
+        >
+          <GrFormClose />
+        </button>
+      )}
     </li>
   );
 }
