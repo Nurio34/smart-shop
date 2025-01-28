@@ -121,6 +121,7 @@ const ProductForm: React.FC = () => {
   useEffect(() => {
     const saveThumnailToCloudinary = async (thumbnailFile: File) => {
       try {
+        setIsImagesSavedToCloudinary(false);
         const base64Thumnnail = await fileToBase64(thumbnailFile);
         const savedThumbnailResponse = await saveImage(base64Thumnnail);
 
@@ -132,10 +133,14 @@ const ProductForm: React.FC = () => {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsImagesSavingToCloudinary(false);
       }
     };
 
     const saveProductImagesToCloudinary = async (productImages: FileList) => {
+      setIsImagesSavedToCloudinary(false);
+
       try {
         const base64ProductImages = await Promise.all(
           Object.values(productImages).map((file) => fileToBase64(file))
@@ -151,6 +156,8 @@ const ProductForm: React.FC = () => {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsImagesSavingToCloudinary(false);
       }
     };
 

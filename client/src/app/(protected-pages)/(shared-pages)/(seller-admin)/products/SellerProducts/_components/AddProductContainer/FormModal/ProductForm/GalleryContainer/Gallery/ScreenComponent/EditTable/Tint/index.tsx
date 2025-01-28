@@ -24,7 +24,6 @@ function Tint({
 
     const colors = tint.colors.map((color) => `:${color.slice(1)}`).join("");
     const tintResult = `${tint.value}${colors}`;
-    console.log(tintResult);
     setPreserveTransformations((prev) => ({ ...prev, tint: tintResult }));
   }, [tint]);
 
