@@ -21,7 +21,7 @@ function ScreenComponent({
 }) {
   const [preserveTransformations, setPreserveTransformations] =
     useState<PreserveTransformationsType>({} as PreserveTransformationsType);
-  console.log(preserveTransformations);
+  console.log({ preserveTransformations });
   const [isMobile, setIsMobile] = useState(false);
   const [containerSize, setContainerSize] = useState<ContainerSizeType>({
     width: currentImage.width!,
@@ -63,7 +63,6 @@ function ScreenComponent({
 
   const style = aspectRatio >= 1 ? wideImages : tallImages;
 
-  console.log(aspectRatio);
   return (
     <div
       className="w-full h-full
@@ -74,6 +73,7 @@ function ScreenComponent({
         <Screen
           currentImage={currentImage}
           preserveTransformations={preserveTransformations}
+          setPreserveTransformations={setPreserveTransformations}
         />
         <EditTable
           setPreserveTransformations={setPreserveTransformations}

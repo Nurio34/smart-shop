@@ -1,10 +1,11 @@
 import { CloudinaryImageType } from "../../..";
 import { CldImage, getCldImageUrl } from "next-cloudinary";
 import { PreserveTransformationsType } from ".";
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, Dispatch, useEffect, useRef, useState } from "react";
 
 interface CropStateType {
   isCropStarted: boolean;
+  isCropComplated: boolean;
   width: number;
   height: number;
   x: number;
@@ -14,16 +15,18 @@ interface CropStateType {
 interface CropIndicatorStateType {
   top: number;
   left: number;
-  width: number;
-  height: number;
 }
 
 function Screen({
   currentImage,
   preserveTransformations,
+  setPreserveTransformations,
 }: {
   currentImage: CloudinaryImageType;
   preserveTransformations: PreserveTransformationsType;
+  setPreserveTransformations: Dispatch<
+    SetStateAction<PreserveTransformationsType>
+  >;
 }) {
   const { height, public_id, secure_url, url, width } = currentImage;
 
@@ -31,6 +34,7 @@ function Screen({
   const ImageRef = useRef<HTMLImageElement | null>(null);
   const [cropState, setCropState] = useState<CropStateType>({
     isCropStarted: false,
+    isCropComplated: false,
     width: 0,
     height: 0,
     x: 0,
@@ -41,17 +45,13 @@ function Screen({
   //! *** cropIndicator state ***
   const CropIndicatorRef = useRef<HTMLDivElement | null>(null);
   const [cropIndicatorState, setCropIndicatorState] =
-    useState<CropIndicatorStateType>({ top: 0, left: 0, width: 0, height: 0 });
+    useState<CropIndicatorStateType>({ top: 0, left: 0 });
   //! ***
 
   if (!height || !public_id || !secure_url || !url || !width) return;
 
   const imageUrl = getCldImageUrl({
     src: secure_url,
-    crop: {
-      type: "thumb",
-      source: true,
-    },
     ...preserveTransformations,
   });
 
@@ -62,6 +62,7 @@ function Screen({
         setCropState((prev) => ({
           ...prev,
           isCropStarted: true,
+          isCropComplated: false,
           width: 0,
           height: 0,
         }));
@@ -90,12 +91,11 @@ function Screen({
         const Mouse_X = e.clientX;
         const Mouse_Y = e.clientY;
 
-        const Base_X = Mouse_X - ImageRef_Left!;
-        const Base_Y = Mouse_Y - ImageRef_Top!;
+        const Crop_X_End = Mouse_X - ImageRef_Left!;
+        const Crop_Y_End = Mouse_Y - ImageRef_Top!;
 
-        const Crop_Width = Base_X - cropState.x;
-        const Crop_Height = Base_Y - cropState.y;
-        console.log({ start: cropState.x, end: Base_X });
+        const Crop_Width = Crop_X_End - cropState.x;
+        const Crop_Height = Crop_Y_End - cropState.y;
 
         setCropState((prev) => ({
           ...prev,
@@ -105,10 +105,14 @@ function Screen({
       };
 
       ImageRef.current.onmouseup = () => {
-        setCropState((prev) => ({ ...prev, isCropStarted: false }));
+        setCropState((prev) => ({
+          ...prev,
+          isCropStarted: false,
+          isCropComplated: true,
+        }));
       };
     }
-  }, []);
+  }, [cropState]);
   //! ***
 
   //! *** handle crop indicator ***
@@ -121,6 +125,27 @@ function Screen({
     }
   }, [cropState]);
   //! ***
+
+  const saveCrop = () => {
+    setPreserveTransformations((prev) => ({
+      ...prev,
+      crop: {
+        type: "thumb",
+        width: cropState.width * 10,
+        height: cropState.height * 10,
+        x: cropState.x,
+        y: cropState.height,
+        source: true,
+      },
+    }));
+    setCropState((prev) => ({
+      ...prev,
+      isCropComplated: false,
+      isCropStarted: false,
+      width: 0,
+      height: 0,
+    }));
+  };
 
   return (
     <>
@@ -142,7 +167,17 @@ function Screen({
         ref={CropIndicatorRef}
         className="fixed border-2 border-dashed border-black  pointer-events-none"
         style={{ top: cropIndicatorState.top, left: cropIndicatorState.left }}
-      ></div>
+      >
+        {cropState.isCropComplated && (
+          <button
+            type="button"
+            className="btn btn-xs btn-success absolute bottom-0 right-0 pointer-events-auto"
+            onClick={saveCrop}
+          >
+            Apply
+          </button>
+        )}
+      </div>
     </>
   );
 }
