@@ -1,7 +1,17 @@
-import { CloudinaryImageType } from "../../..";
-import { CldImage, getCldImageUrl } from "next-cloudinary";
-import { PreserveTransformationsType } from ".";
-import { SetStateAction, Dispatch, useEffect, useRef, useState } from "react";
+import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { ContainerSizeType, PreserveTransformationsType } from "..";
+
+export interface CropIndicatorStateType {
+  top: number;
+  left: number;
+}
 
 interface CropStateType {
   isCropStarted: boolean;
@@ -12,26 +22,24 @@ interface CropStateType {
   y: number;
 }
 
-interface CropIndicatorStateType {
-  top: number;
-  left: number;
-}
-
-function Screen({
-  currentImage,
-  preserveTransformations,
+function CropIndicator({
+  ImageRef,
   setPreserveTransformations,
+  containerSize,
 }: {
-  currentImage: CloudinaryImageType;
-  preserveTransformations: PreserveTransformationsType;
+  ImageRef: RefObject<HTMLImageElement | null>;
   setPreserveTransformations: Dispatch<
     SetStateAction<PreserveTransformationsType>
   >;
+  containerSize: ContainerSizeType;
 }) {
-  const { height, public_id, secure_url, url, width } = currentImage;
+  //! *** cropIndicator state ***
+  const CropIndicatorRef = useRef<HTMLDivElement | null>(null);
+  const [cropIndicatorState, setCropIndicatorState] =
+    useState<CropIndicatorStateType>({ top: 0, left: 0 });
+  //! ***
 
   //! *** crop state ***
-  const ImageRef = useRef<HTMLImageElement | null>(null);
   const [cropState, setCropState] = useState<CropStateType>({
     isCropStarted: false,
     isCropComplated: false,
@@ -41,19 +49,6 @@ function Screen({
     y: 0,
   });
   //! ***
-
-  //! *** cropIndicator state ***
-  const CropIndicatorRef = useRef<HTMLDivElement | null>(null);
-  const [cropIndicatorState, setCropIndicatorState] =
-    useState<CropIndicatorStateType>({ top: 0, left: 0 });
-  //! ***
-
-  if (!height || !public_id || !secure_url || !url || !width) return;
-
-  const imageUrl = getCldImageUrl({
-    src: secure_url,
-    ...preserveTransformations,
-  });
 
   //! *** crop image ***
   useEffect(() => {
@@ -131,10 +126,10 @@ function Screen({
       ...prev,
       crop: {
         type: "thumb",
-        width: cropState.width * 10,
-        height: cropState.height * 10,
-        x: cropState.x,
-        y: cropState.height,
+        width: (cropState.width * containerSize.widthParameter).toFixed(),
+        height: (cropState.height * containerSize.heightParameter).toFixed(),
+        x: (cropState.x * containerSize.widthParameter).toFixed(),
+        y: (cropState.y * containerSize.heightParameter).toFixed(),
         source: true,
       },
     }));
@@ -148,37 +143,21 @@ function Screen({
   };
 
   return (
-    <>
-      <figure className="relative w-full h-full">
-        <CldImage
-          ref={ImageRef}
-          fill
-          className="object-cover"
-          draggable={false}
-          src={imageUrl}
-          sizes="(max-width: 768px) 100vw,
-        (max-width: 1200px) 50vw,
-        33vw"
-          alt="Description of my image"
-          preserveTransformations
-        />
-      </figure>
-      <div
-        ref={CropIndicatorRef}
-        className="fixed border-2 border-dashed border-black  pointer-events-none"
-        style={{ top: cropIndicatorState.top, left: cropIndicatorState.left }}
-      >
-        {cropState.isCropComplated && (
-          <button
-            type="button"
-            className="btn btn-xs btn-success absolute bottom-0 right-0 pointer-events-auto"
-            onClick={saveCrop}
-          >
-            Apply
-          </button>
-        )}
-      </div>
-    </>
+    <div
+      ref={CropIndicatorRef}
+      className="fixed border-2 border-dashed border-black  pointer-events-none"
+      style={{ top: cropIndicatorState.top, left: cropIndicatorState.left }}
+    >
+      {cropState.isCropComplated && (
+        <button
+          type="button"
+          className="btn btn-xs btn-success absolute bottom-0 right-0 pointer-events-auto"
+          onClick={saveCrop}
+        >
+          Apply
+        </button>
+      )}
+    </div>
   );
 }
-export default Screen;
+export default CropIndicator;

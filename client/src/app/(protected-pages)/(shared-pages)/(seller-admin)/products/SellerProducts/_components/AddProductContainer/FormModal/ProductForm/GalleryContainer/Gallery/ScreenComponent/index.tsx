@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CloudinaryImageType } from "../../..";
 import EditTable from "./EditTable";
 import Screen from "./Screen";
 
 export interface PreserveTransformationsType {
   tint: string;
-  width: number;
-  height: number;
 }
 
 export interface ContainerSizeType {
   width: number;
   height: number;
+  widthParameter: number;
+  heightParameter: number;
 }
 
 function ScreenComponent({
@@ -21,12 +21,40 @@ function ScreenComponent({
 }) {
   const [preserveTransformations, setPreserveTransformations] =
     useState<PreserveTransformationsType>({} as PreserveTransformationsType);
-  console.log({ preserveTransformations });
   const [isMobile, setIsMobile] = useState(false);
+  console.log(preserveTransformations);
+  const ImageContainerRef = useRef<HTMLDivElement | null>(null);
   const [containerSize, setContainerSize] = useState<ContainerSizeType>({
     width: currentImage.width!,
     height: currentImage.height!,
+    widthParameter: 0,
+    heightParameter: 0,
   });
+
+  useEffect(() => {
+    if (ImageContainerRef.current) {
+      const ImageContainerRef_Width =
+        ImageContainerRef.current.getBoundingClientRect().width;
+      const ImageContainerRef_Height =
+        ImageContainerRef.current.getBoundingClientRect().height;
+
+      setContainerSize((prev) => ({
+        ...prev,
+        widthParameter: prev.width / ImageContainerRef_Width,
+        heightParameter: prev.height / ImageContainerRef_Height,
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (containerSize.widthParameter > 0 && containerSize.heightParameter > 0) {
+      setContainerSize((prev) => ({
+        ...prev,
+        width: +(prev.width / prev.widthParameter).toFixed(),
+        height: +(prev.height / prev.heightParameter).toFixed(),
+      }));
+    }
+  }, [containerSize.widthParameter, containerSize.heightParameter]);
 
   useEffect(() => {
     const handleIsMobile = () => {
@@ -37,7 +65,6 @@ function ScreenComponent({
         setIsMobile(false);
       }
     };
-
     handleIsMobile();
 
     window.addEventListener("resize", handleIsMobile);
@@ -69,11 +96,16 @@ function ScreenComponent({
         flex justify-center items-center relative
     "
     >
-      <div className=" justify-self-center self-center" style={style}>
+      <div
+        ref={ImageContainerRef}
+        className=" justify-self-center self-center"
+        style={style}
+      >
         <Screen
           currentImage={currentImage}
           preserveTransformations={preserveTransformations}
           setPreserveTransformations={setPreserveTransformations}
+          containerSize={containerSize}
         />
         <EditTable
           setPreserveTransformations={setPreserveTransformations}
