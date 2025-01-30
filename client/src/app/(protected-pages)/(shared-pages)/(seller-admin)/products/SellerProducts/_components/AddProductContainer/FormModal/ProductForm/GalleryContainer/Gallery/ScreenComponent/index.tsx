@@ -5,6 +5,12 @@ import Screen from "./Screen";
 
 export interface PreserveTransformationsType {
   tint: string;
+  width: number;
+  height: number;
+  crop: "fill";
+  extract?: string | string[];
+  enhance: boolean;
+  removeBackground: boolean;
 }
 
 export interface ContainerSizeType {
@@ -19,10 +25,18 @@ function ScreenComponent({
 }: {
   currentImage: CloudinaryImageType;
 }) {
+  //! *** preserveTransformations-state ***
   const [preserveTransformations, setPreserveTransformations] =
-    useState<PreserveTransformationsType>({} as PreserveTransformationsType);
+    useState<PreserveTransformationsType>({
+      crop: "fill",
+      enhance: false,
+      removeBackground: false,
+    } as PreserveTransformationsType);
+  //! ***********************************
+
   const [isMobile, setIsMobile] = useState(false);
-  console.log(preserveTransformations);
+
+  //! *** containerSize-state ***
   const ImageContainerRef = useRef<HTMLDivElement | null>(null);
   const [containerSize, setContainerSize] = useState<ContainerSizeType>({
     width: currentImage.width!,
@@ -30,7 +44,9 @@ function ScreenComponent({
     widthParameter: 0,
     heightParameter: 0,
   });
+  //! **************************
 
+  //! *** handle containerSize-state ***
   useEffect(() => {
     if (ImageContainerRef.current) {
       const ImageContainerRef_Width =
@@ -57,6 +73,17 @@ function ScreenComponent({
   }, [containerSize.widthParameter, containerSize.heightParameter]);
 
   useEffect(() => {
+    setPreserveTransformations((prev) => ({
+      ...prev,
+      width: +(containerSize.width * containerSize.widthParameter).toFixed(),
+      height: +(containerSize.height * containerSize.heightParameter).toFixed(),
+    }));
+  }, [containerSize.height, containerSize.width]);
+
+  //! ******************************
+
+  //! *** handle isMobile-state ***
+  useEffect(() => {
     const handleIsMobile = () => {
       const screenSize = window.innerWidth;
       if (screenSize < 768) {
@@ -71,14 +98,14 @@ function ScreenComponent({
 
     return () => window.removeEventListener("resize", handleIsMobile);
   }, []);
+  //! ******************************
 
+  //! *** handle ImageContainer responsive sizes
   const { width, height } = containerSize;
-
   const aspectRatio = width / height;
-
   const wideImages = {
     width,
-    maxWidth: "50vw",
+    maxWidth: "30vw",
     minWidth: "320px",
     aspectRatio,
   };
@@ -87,8 +114,8 @@ function ScreenComponent({
     maxHeight: isMobile ? "40vh" : "60vh",
     aspectRatio,
   };
-
   const style = aspectRatio >= 1 ? wideImages : tallImages;
+  //! *******************************************
 
   return (
     <div
@@ -98,7 +125,7 @@ function ScreenComponent({
     >
       <div
         ref={ImageContainerRef}
-        className=" justify-self-center self-center"
+        className="justify-self-center self-center"
         style={style}
       >
         <Screen
@@ -111,6 +138,7 @@ function ScreenComponent({
           setPreserveTransformations={setPreserveTransformations}
           containerSize={containerSize}
           setContainerSize={setContainerSize}
+          currentImage={currentImage}
         />
       </div>
     </div>

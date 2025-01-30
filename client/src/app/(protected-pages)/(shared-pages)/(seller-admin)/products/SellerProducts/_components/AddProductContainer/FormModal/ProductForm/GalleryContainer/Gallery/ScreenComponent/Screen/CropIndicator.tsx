@@ -122,17 +122,17 @@ function CropIndicator({
   //! ***
 
   const saveCrop = () => {
-    setPreserveTransformations((prev) => ({
-      ...prev,
-      crop: {
-        type: "thumb",
-        width: (cropState.width * containerSize.widthParameter).toFixed(),
-        height: (cropState.height * containerSize.heightParameter).toFixed(),
-        x: (cropState.x * containerSize.widthParameter).toFixed(),
-        y: (cropState.y * containerSize.heightParameter).toFixed(),
-        source: true,
-      },
-    }));
+    //setPreserveTransformations((prev) => ({
+    //...prev,
+    //crop: {
+    //        type: "thumb",
+    //width: (cropState.width * containerSize.widthParameter).toFixed(),
+    //height: (cropState.height * containerSize.heightParameter).toFixed(),
+    //x: (cropState.x * containerSize.widthParameter).toFixed(),
+    //y: (cropState.y * containerSize.heightParameter).toFixed(),
+    //source: true,
+    //},
+    //}));
     setCropState((prev) => ({
       ...prev,
       isCropComplated: false,
@@ -142,22 +142,30 @@ function CropIndicator({
     }));
   };
 
+  //! *** toPrevent eslint errors ***
+  console.log(setPreserveTransformations, containerSize);
+  //! ****
+
   return (
-    <div
-      ref={CropIndicatorRef}
-      className="fixed border-2 border-dashed border-black  pointer-events-none"
-      style={{ top: cropIndicatorState.top, left: cropIndicatorState.left }}
-    >
-      {cropState.isCropComplated && (
-        <button
-          type="button"
-          className="btn btn-xs btn-success absolute bottom-0 right-0 pointer-events-auto"
-          onClick={saveCrop}
+    <>
+      {!cropState.isCropComplated && (
+        <div
+          ref={CropIndicatorRef}
+          className="fixed border-2 border-dashed border-black  pointer-events-none"
+          style={{ top: cropIndicatorState.top, left: cropIndicatorState.left }}
         >
-          Apply
-        </button>
+          {cropState.isCropComplated && (
+            <button
+              type="button"
+              className="btn btn-xs btn-success absolute bottom-0 right-0 pointer-events-auto"
+              onClick={saveCrop}
+            >
+              Apply
+            </button>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 export default CropIndicator;

@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Category from "./Category";
 import Tag from "./Tag";
 import Thumbnail from "./Thumbnail";
@@ -68,7 +68,11 @@ export interface CloudinaryImagesType {
   images: CloudinaryImageType[] | null;
 }
 
-const ProductForm: React.FC = () => {
+const ProductForm = ({
+  setIsFormModalOpen,
+}: {
+  setIsFormModalOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const {
     handleSubmit,
     register,
@@ -103,6 +107,7 @@ const ProductForm: React.FC = () => {
     useState(false);
   const [cloudinaryImages, setCloudinaryImages] =
     useState<CloudinaryImagesType>({ thumbnail: null, images: null });
+  console.log(cloudinaryImages);
 
   const watchList = watch();
 
@@ -185,10 +190,10 @@ const ProductForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const newProductResponse = await createProduct(data);
+      const newProductResponse = await createProduct(data, cloudinaryImages);
 
-      console.log(newProductResponse);
       if (newProductResponse.status === "error") return setError("Try Again !");
+      setIsFormModalOpen(false);
       //! *** reset ***
       reset();
     } catch (error) {

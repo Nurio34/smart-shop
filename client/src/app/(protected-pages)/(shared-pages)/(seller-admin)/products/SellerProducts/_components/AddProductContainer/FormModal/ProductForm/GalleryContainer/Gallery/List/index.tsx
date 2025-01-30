@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { CloudinaryImageType } from "../../..";
 import ImageComponent from "./ImageComponent";
 
-function List({ allImages }: { allImages: CloudinaryImageType[] }) {
+function List({
+  allImages,
+  setCurrentIndex,
+}: {
+  allImages: CloudinaryImageType[];
+  setCurrentIndex: Dispatch<SetStateAction<number>>;
+}) {
   const DivRef = useRef<HTMLDivElement | null>(null);
   const UlRef = useRef<HTMLUListElement | null>(null);
 
@@ -40,7 +46,11 @@ function List({ allImages }: { allImages: CloudinaryImageType[] }) {
       <ul ref={UlRef} className="flex gap-x-4 px-4">
         {allImages.map((image, index) => (
           <li key={image.public_id}>
-            <ImageComponent image={image} index={index} />
+            <ImageComponent
+              image={image}
+              index={index}
+              setCurrentIndex={setCurrentIndex}
+            />
           </li>
         ))}
       </ul>

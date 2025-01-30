@@ -31,7 +31,7 @@ function FormModal({
           exit={{ x: "50%", opacity: 0, transition: { type: "tween" } }}
         >
           <CloseFormModalButton setIsFormModalOpen={setIsFormModalOpen} />
-          <ProductForm />
+          <ProductForm setIsFormModalOpen={setIsFormModalOpen} />
         </motion.div>
       )}
     </AnimatePresence>

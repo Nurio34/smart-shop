@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ChatHistoryType } from "../../../Client";
+import Markdown from "markdown-to-jsx";
 
 function ChatScreen({
   chatHistory,
@@ -91,9 +92,9 @@ function ChatScreen({
                 }
               }}
               key={index}
-              className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent/30`}
+              className={`w-11/12 py-1 px-2 rounded-md justify-self-start bg-accent/10`}
             >
-              {lastBotMessageState.replaceAll("**", "")}
+              <Markdown>{lastBotMessageState}</Markdown>
             </li>
           );
         }
@@ -108,11 +109,11 @@ function ChatScreen({
             key={index}
             className={`w-11/12 py-1 px-2 rounded-md ${
               item.role === "user"
-                ? " justify-self-end bg-secondary/30"
-                : "justify-self-start bg-accent/30"
+                ? " justify-self-end bg-secondary/10"
+                : "justify-self-start bg-accent/10"
             }`}
           >
-            <p>{item.message.replaceAll("**", "")}</p>
+            <Markdown>{item.message}</Markdown>
           </li>
         );
       })}

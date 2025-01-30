@@ -1,5 +1,5 @@
-import { CldImage, getCldImageUrl } from "next-cloudinary";
-import { SetStateAction, Dispatch, useEffect, useRef, useState } from "react";
+import { getCldImageUrl } from "next-cloudinary";
+import { SetStateAction, Dispatch, useRef } from "react";
 import { CloudinaryImageType } from "../../../..";
 import { ContainerSizeType, PreserveTransformationsType } from "..";
 import CropIndicator from "./CropIndicator";
@@ -23,13 +23,12 @@ function Screen({
 
   if (!height || !public_id || !secure_url || !url || !width) return;
 
+  //! *** imageUrl-state ***
   const imageUrl = getCldImageUrl({
     src: secure_url,
-    width: containerSize.width * containerSize.widthParameter,
-    height: containerSize.height * containerSize.heightParameter,
     ...preserveTransformations,
   });
-  console.log(imageUrl);
+  //! *********************
 
   return (
     <>

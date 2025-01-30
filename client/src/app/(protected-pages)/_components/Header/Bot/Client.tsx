@@ -21,11 +21,11 @@ function BotClient({
   products: Product[];
   history: Product[];
 }) {
-  const initialUserMessage = `
-    Here is the all products in Smart Shop app : ${JSON.stringify(products)} .
-    Here is my history of products that i searched, looked or purchased : ${JSON.stringify(
-      history
-    )}.
+  const initialUserMessage = `Here is the all products in Smart Shop app : ${JSON.stringify(
+    products
+  )}.Here is my history of products that i searched, looked or purchased : ${JSON.stringify(
+    history
+  )}.
   `;
 
   const initialRequest = `
@@ -44,6 +44,7 @@ function BotClient({
     setIsLoading(true);
     try {
       const response = await recomendations(chatHistory, message);
+      console.log(response);
       setChatHistory((prev) => [...prev, { role: "model", message: response }]);
     } catch (error) {
       console.log(error);

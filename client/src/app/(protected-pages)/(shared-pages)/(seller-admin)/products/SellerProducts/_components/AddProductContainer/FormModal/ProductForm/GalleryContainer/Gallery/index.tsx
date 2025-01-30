@@ -20,10 +20,6 @@ function Gallery({
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentImage = allImages[currentIndex];
 
-  //! *** log ***
-  console.log(setCurrentIndex);
-  //! ***
-
   return (
     <AnimatePresence>
       {isGalleryOpen && (
@@ -43,7 +39,7 @@ function Gallery({
             Close
           </button>
           <ScreenComponent currentImage={currentImage} />
-          <List allImages={allImages} />
+          <List allImages={allImages} setCurrentIndex={setCurrentIndex} />
         </motion.div>
       )}
     </AnimatePresence>

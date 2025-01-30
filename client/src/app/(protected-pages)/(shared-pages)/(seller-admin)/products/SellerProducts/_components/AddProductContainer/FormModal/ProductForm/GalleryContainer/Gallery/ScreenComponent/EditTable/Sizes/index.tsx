@@ -1,15 +1,25 @@
-import { Dispatch } from "react";
-
+import { Dispatch, useEffect } from "react";
 import { SetStateAction } from "react";
 import { ContainerSizeType } from "../..";
+import { CloudinaryImageType } from "../../../../..";
 
 function Sizes({
   containerSize,
   setContainerSize,
+  currentImage,
 }: {
   containerSize: ContainerSizeType;
   setContainerSize: Dispatch<SetStateAction<ContainerSizeType>>;
+  currentImage: CloudinaryImageType;
 }) {
+  useEffect(() => {
+    setContainerSize((prev) => ({
+      ...prev,
+      width: currentImage.width!,
+      height: currentImage.height!,
+    }));
+  }, [currentImage]);
+
   return (
     <div className="flex items-center gap-x-[1vw] bg-base-content text-base-100 py-[1vh] px-[1vw] rounded-md">
       <label htmlFor="width">
@@ -20,6 +30,7 @@ function Sizes({
           id="width"
           className="input input-sm input-bordered max-w-24  text-base-content"
           step={10}
+          defaultValue={currentImage.width!}
           value={containerSize.width}
           onChange={(e) =>
             setContainerSize((prev) => ({ ...prev, width: +e.target.value }))
@@ -34,6 +45,7 @@ function Sizes({
           id="height"
           className="input input-sm input-bordered max-w-24  text-base-content"
           step={10}
+          defaultValue={currentImage.height!}
           value={containerSize.height}
           onChange={(e) =>
             setContainerSize((prev) => ({ ...prev, height: +e.target.value }))
