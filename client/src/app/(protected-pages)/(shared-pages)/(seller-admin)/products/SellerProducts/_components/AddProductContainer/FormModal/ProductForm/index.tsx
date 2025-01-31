@@ -353,6 +353,7 @@ const ProductForm = ({
           isImagesSavingToCloudinary={isImagesSavingToCloudinary}
           isImagesSavedToCloudinary={isImagesSavedToCloudinary}
           cloudinaryImages={cloudinaryImages}
+          setCloudinaryImages={setCloudinaryImages}
         />
 
         {/* Submit Button */}

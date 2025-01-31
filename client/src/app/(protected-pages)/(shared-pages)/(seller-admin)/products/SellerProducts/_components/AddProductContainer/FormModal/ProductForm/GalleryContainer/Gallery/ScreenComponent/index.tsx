@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { CloudinaryImageType } from "../../..";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { CloudinaryImagesType, CloudinaryImageType } from "../../..";
 import EditTable from "./EditTable";
 import Screen from "./Screen";
 
@@ -22,8 +22,12 @@ export interface ContainerSizeType {
 
 function ScreenComponent({
   currentImage,
+  setCloudinaryImages,
+  cloudinaryImages,
 }: {
   currentImage: CloudinaryImageType;
+  setCloudinaryImages: Dispatch<SetStateAction<CloudinaryImagesType>>;
+  cloudinaryImages: CloudinaryImagesType;
 }) {
   //! *** preserveTransformations-state ***
   const [preserveTransformations, setPreserveTransformations] =
@@ -139,6 +143,8 @@ function ScreenComponent({
           containerSize={containerSize}
           setContainerSize={setContainerSize}
           currentImage={currentImage}
+          setCloudinaryImages={setCloudinaryImages}
+          cloudinaryImages={cloudinaryImages}
         />
       </div>
     </div>

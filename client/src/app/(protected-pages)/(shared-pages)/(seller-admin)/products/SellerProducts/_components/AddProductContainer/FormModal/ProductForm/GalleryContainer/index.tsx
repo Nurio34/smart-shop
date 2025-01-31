@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import Gallery from "./Gallery";
 import { CloudinaryImagesType } from "..";
 
@@ -6,10 +6,12 @@ function GalleyContainer({
   isImagesSavingToCloudinary,
   isImagesSavedToCloudinary,
   cloudinaryImages,
+  setCloudinaryImages,
 }: {
   isImagesSavingToCloudinary: boolean;
   isImagesSavedToCloudinary: boolean;
   cloudinaryImages: CloudinaryImagesType;
+  setCloudinaryImages: Dispatch<SetStateAction<CloudinaryImagesType>>;
 }) {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
@@ -39,6 +41,7 @@ function GalleyContainer({
         isGalleryOpen={isGalleryOpen}
         setIsGalleryOpen={setIsGalleryOpen}
         cloudinaryImages={cloudinaryImages}
+        setCloudinaryImages={setCloudinaryImages}
       />
     </div>
   );

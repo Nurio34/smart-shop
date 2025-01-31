@@ -33,11 +33,7 @@ function Screen({
   return (
     <>
       <Image ImageRef={ImageRef} imageUrl={imageUrl} />
-      <CropIndicator
-        ImageRef={ImageRef}
-        setPreserveTransformations={setPreserveTransformations}
-        containerSize={containerSize}
-      />
+      <CropIndicator ImageRef={ImageRef} />
     </>
   );
 }

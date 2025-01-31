@@ -9,10 +9,12 @@ function Gallery({
   isGalleryOpen,
   setIsGalleryOpen,
   cloudinaryImages,
+  setCloudinaryImages,
 }: {
   isGalleryOpen: boolean;
   setIsGalleryOpen: Dispatch<SetStateAction<boolean>>;
   cloudinaryImages: CloudinaryImagesType;
+  setCloudinaryImages: Dispatch<SetStateAction<CloudinaryImagesType>>;
 }) {
   const allImages = [cloudinaryImages.thumbnail!].concat(
     cloudinaryImages.images!
@@ -38,7 +40,11 @@ function Gallery({
           >
             Close
           </button>
-          <ScreenComponent currentImage={currentImage} />
+          <ScreenComponent
+            currentImage={currentImage}
+            setCloudinaryImages={setCloudinaryImages}
+            cloudinaryImages={cloudinaryImages}
+          />
           <List allImages={allImages} setCurrentIndex={setCurrentIndex} />
         </motion.div>
       )}

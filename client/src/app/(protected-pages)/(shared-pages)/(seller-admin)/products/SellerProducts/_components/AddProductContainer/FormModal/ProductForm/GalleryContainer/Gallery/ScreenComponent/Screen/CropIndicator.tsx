@@ -24,14 +24,8 @@ interface CropStateType {
 
 function CropIndicator({
   ImageRef,
-  setPreserveTransformations,
-  containerSize,
 }: {
   ImageRef: RefObject<HTMLImageElement | null>;
-  setPreserveTransformations: Dispatch<
-    SetStateAction<PreserveTransformationsType>
-  >;
-  containerSize: ContainerSizeType;
 }) {
   //! *** cropIndicator state ***
   const CropIndicatorRef = useRef<HTMLDivElement | null>(null);
@@ -141,10 +135,6 @@ function CropIndicator({
       height: 0,
     }));
   };
-
-  //! *** toPrevent eslint errors ***
-  console.log(setPreserveTransformations, containerSize);
-  //! ****
 
   return (
     <>

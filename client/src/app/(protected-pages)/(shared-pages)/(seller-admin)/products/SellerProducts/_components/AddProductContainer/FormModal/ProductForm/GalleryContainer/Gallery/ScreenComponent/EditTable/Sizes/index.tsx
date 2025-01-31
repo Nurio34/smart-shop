@@ -30,7 +30,6 @@ function Sizes({
           id="width"
           className="input input-sm input-bordered max-w-24  text-base-content"
           step={10}
-          defaultValue={currentImage.width!}
           value={containerSize.width}
           onChange={(e) =>
             setContainerSize((prev) => ({ ...prev, width: +e.target.value }))
@@ -45,7 +44,6 @@ function Sizes({
           id="height"
           className="input input-sm input-bordered max-w-24  text-base-content"
           step={10}
-          defaultValue={currentImage.height!}
           value={containerSize.height}
           onChange={(e) =>
             setContainerSize((prev) => ({ ...prev, height: +e.target.value }))

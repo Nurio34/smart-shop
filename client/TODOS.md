@@ -1,4 +1,3 @@
--- Chatbot'u markdown ile zenginşeltir.
 -- Create product sırasında description yazdıktan sonra, ürün fotolarını da yükleyince, ai bu iki data'dan alternatif description oluştursun
 -- Create product sırasında image'leri cloudinary ile editleme seçeneği oluştur
 -- Landing Page'e scroll animations koy.

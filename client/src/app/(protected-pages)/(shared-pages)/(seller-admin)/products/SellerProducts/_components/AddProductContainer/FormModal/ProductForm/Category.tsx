@@ -43,8 +43,8 @@ function Category({
         placeholder="Select or enter a category"
       />
       <datalist id="categories">
-        {categories.map((category) => (
-          <option key={category} value={category} />
+        {categories.map((category, index) => (
+          <option key={`${category}-${index}`} value={category} />
         ))}
       </datalist>
       {errors.category && (

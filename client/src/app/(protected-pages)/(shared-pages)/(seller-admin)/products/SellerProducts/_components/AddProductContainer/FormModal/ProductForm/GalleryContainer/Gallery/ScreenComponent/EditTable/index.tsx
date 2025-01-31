@@ -6,13 +6,16 @@ import Tint from "./Tint";
 import Sizes from "./Sizes";
 import Enhance from "./Enhance";
 import RemoveBackground from "./RemoveBackground";
-import { CloudinaryImageType } from "../../../..";
+import { CloudinaryImagesType, CloudinaryImageType } from "../../../..";
+import SaveChangesButton from "./SaveShangesButton";
 
 function EditTable({
   setPreserveTransformations,
   containerSize,
   setContainerSize,
   currentImage,
+  setCloudinaryImages,
+  cloudinaryImages,
 }: {
   setPreserveTransformations: Dispatch<
     SetStateAction<PreserveTransformationsType>
@@ -20,6 +23,8 @@ function EditTable({
   containerSize: ContainerSizeType;
   setContainerSize: Dispatch<SetStateAction<ContainerSizeType>>;
   currentImage: CloudinaryImageType;
+  setCloudinaryImages: Dispatch<SetStateAction<CloudinaryImagesType>>;
+  cloudinaryImages: CloudinaryImagesType;
 }) {
   return (
     <div
@@ -36,6 +41,10 @@ function EditTable({
       <Enhance setPreserveTransformations={setPreserveTransformations} />
       <RemoveBackground
         setPreserveTransformations={setPreserveTransformations}
+      />
+      <SaveChangesButton
+        setCloudinaryImages={setCloudinaryImages}
+        cloudinaryImages={cloudinaryImages}
       />
     </div>
   );
