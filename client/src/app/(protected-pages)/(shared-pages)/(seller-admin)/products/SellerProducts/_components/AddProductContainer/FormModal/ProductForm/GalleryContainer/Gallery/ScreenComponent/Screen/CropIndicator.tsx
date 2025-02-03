@@ -1,12 +1,4 @@
-import {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { ContainerSizeType, PreserveTransformationsType } from "..";
+import { RefObject, useEffect, useRef, useState } from "react";
 
 export interface CropIndicatorStateType {
   top: number;

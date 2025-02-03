@@ -4,6 +4,7 @@ import ReturnPolicy from "../_components/ReturnPolicy";
 import Tags from "../_components/Tags";
 import ActionButtons from "../_components/ActionButtons";
 import { ProductWithImages } from ".";
+import CommentsContainer from "../_components/CommentsContainer";
 
 function PageContainerClient({ product }: { product: ProductWithImages }) {
   return (
@@ -17,6 +18,7 @@ function PageContainerClient({ product }: { product: ProductWithImages }) {
           <ActionButtons product={product} />
         </div>
       </div>
+      <CommentsContainer product={product} />
     </main>
   );
 }

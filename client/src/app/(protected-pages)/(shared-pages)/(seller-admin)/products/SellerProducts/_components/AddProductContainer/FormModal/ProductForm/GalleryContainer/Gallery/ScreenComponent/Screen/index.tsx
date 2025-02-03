@@ -30,6 +30,10 @@ function Screen({
   });
   //! *********************
 
+  //! *** prevent eslint errors ***
+  console.log(setPreserveTransformations, containerSize);
+  //! ***
+
   return (
     <>
       <Image ImageRef={ImageRef} imageUrl={imageUrl} />

@@ -13,6 +13,8 @@ import SubmitButton from "./SubmitButton";
 import { fileToBase64 } from "@/utils/fileToBase64";
 import { saveImage, saveImages } from "@/actions/cloudinaryActions";
 import GalleyContainer from "./GalleryContainer";
+import { createAiDescription } from "@/actions/gemini/createAiDescription";
+import BotContainer from "./BotContainer";
 
 // Define Zod schema for validation
 export const ProductSchema = z.object({
@@ -82,8 +84,9 @@ const ProductForm = ({
   } = useForm<ProductFormType>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      title: "Product Title",
-      description: "Product Description",
+      title: "Bajaj Pulsar NS200",
+      description:
+        "The Bajaj Pulsar NS200 is a powerful and stylish sports bike.",
       category: "laptops",
       tags: "pet supplies",
       price: 12,
@@ -107,7 +110,11 @@ const ProductForm = ({
     useState(false);
   const [cloudinaryImages, setCloudinaryImages] =
     useState<CloudinaryImagesType>({ thumbnail: null, images: null });
-  console.log(cloudinaryImages);
+
+  //! *** aiDesciption-state ***
+  const [aiDescription, setAiDescription] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
+  //! ***
 
   const watchList = watch();
 
@@ -186,6 +193,43 @@ const ProductForm = ({
     }
   }, [cloudinaryImages]);
 
+  //! *** CREATE AI POWERED DESCRIPTION BASED ON PRODUCTS'S TITLE, DESCRIPTION, THUMBNAIL IMAGE AND FIRST TWO IMAGES ***
+
+  const createAiDescriptionAction = async () => {
+    const title = watchList.title;
+    const description = watchList.description;
+    const thumbnail = cloudinaryImages.thumbnail;
+    const images = cloudinaryImages.images;
+
+    if (!title || !description || !thumbnail || !images) return;
+
+    const urls = images
+      .map((image) => image.secure_url!)
+      .concat(thumbnail.secure_url!);
+
+    try {
+      setIsGenerating(true);
+      setAiDescription("");
+      const response = await createAiDescription(title, description, urls);
+
+      if (response.status === "error") {
+        setAiDescription("Error while generate !");
+        return;
+      }
+      setAiDescription(response.description!);
+    } catch (error) {
+      console.log(error);
+      setAiDescription("Error while generate !");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  useEffect(() => {
+    createAiDescriptionAction();
+  }, [watchList.title, watchList.description, cloudinaryImages]);
+  //! ***
+
   const onSubmit = async (data: ProductFormType) => {
     setIsSubmitting(true);
 
@@ -206,9 +250,16 @@ const ProductForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" justify-self-center w-1/2 min-w-80 flex flex-col gap-y-[1vh] overflow-y-auto px-[1vw] pb-[3vh] mb-[4vh]"
+      className=" relative justify-self-center w-1/2 min-w-80 flex flex-col gap-y-[1vh] overflow-y-auto px-[1vw] pb-[3vh] mb-[4vh]"
       style={{ scrollbarWidth: "none" }}
     >
+      {/* AI-Bot */}
+      <BotContainer
+        isGenerating={isGenerating}
+        aiDescription={aiDescription}
+        createAiDescriptionAction={createAiDescriptionAction}
+      />
+
       {/* Title */}
       <div>
         <label className="block font-semibold mb-1">Title</label>

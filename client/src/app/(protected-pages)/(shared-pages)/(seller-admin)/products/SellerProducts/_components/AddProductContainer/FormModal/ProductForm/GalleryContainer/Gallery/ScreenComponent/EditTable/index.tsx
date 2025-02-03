@@ -8,6 +8,7 @@ import Enhance from "./Enhance";
 import RemoveBackground from "./RemoveBackground";
 import { CloudinaryImagesType, CloudinaryImageType } from "../../../..";
 import SaveChangesButton from "./SaveShangesButton";
+import BetaNote from "@/app/_globalComponents/BetaNote";
 
 function EditTable({
   setPreserveTransformations,
@@ -46,6 +47,7 @@ function EditTable({
         setCloudinaryImages={setCloudinaryImages}
         cloudinaryImages={cloudinaryImages}
       />
+      <BetaNote />
     </div>
   );
 }

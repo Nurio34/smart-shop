@@ -54,8 +54,8 @@ const updateCloudinaryImage = async (
 const processCloudinaryImage = async (
   cloudinaryImages: CloudinaryImagesType
 ) => {
-  const cloudinaryUrl = cloudinaryImages.thumbnail?.secure_url!;
-  const publicId = cloudinaryImages.thumbnail?.public_id!;
+  const cloudinaryUrl = cloudinaryImages.thumbnail!.secure_url!;
+  const publicId = cloudinaryImages.thumbnail!.public_id!;
 
   if (!cloudinaryUrl || !publicId) {
     console.error("Invalid Cloudinary image data.");
@@ -73,7 +73,6 @@ const processCloudinaryImage = async (
   // You can modify the image here if needed
 
   const updatedImage = await updateCloudinaryImage(downloadedPath, publicId);
-  console.log({ updatedImage });
 
   return updatedImage;
 };

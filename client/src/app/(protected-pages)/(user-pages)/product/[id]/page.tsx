@@ -26,6 +26,11 @@ async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
     include: {
       images: true,
       thumbnail: true,
+      reviews: {
+        include: {
+          reviewer: true,
+        },
+      },
     },
   });
 

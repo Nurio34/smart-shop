@@ -1,7 +1,7 @@
 "use client";
 
 import ReduxProvider from "@/app/_globalComponents/ReduxProvider";
-import { Product } from "@prisma/client";
+import { Product, Review, User } from "@prisma/client";
 import PageContainerClient from "./Client";
 
 export type ImageType = {
@@ -14,6 +14,7 @@ export type ImageType = {
 export type ProductWithImages = Product & {
   images: ImageType[];
   thumbnail: ImageType | null;
+  reviews?: (Review & { reviewer: User })[];
 };
 
 function PageContainer({ product }: { product: ProductWithImages }) {
