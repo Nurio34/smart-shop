@@ -1,8 +1,22 @@
 import Image from "next/image";
 import { ReviewWithReviewer } from "../../../../../PageContainer";
 import { FaStar } from "react-icons/fa";
+import SettingsContainer from "./SettingsContainer";
+import { Dispatch, SetStateAction } from "react";
 
-function Review({ review }: { review: ReviewWithReviewer }) {
+function Review({
+  review,
+  setIsEditting,
+  setSelectedRating,
+  setReviewId,
+}: {
+  review: ReviewWithReviewer;
+  setIsEditting: Dispatch<SetStateAction<boolean>>;
+  setSelectedRating: Dispatch<SetStateAction<number>>;
+  setReviewId: Dispatch<SetStateAction<string | null>>;
+}) {
+  const stars = Array(review.rating).fill("#");
+
   return (
     <li className=" grid gap-y-2">
       <div className="flex items-center gap-x-[1vw]">
@@ -17,19 +31,19 @@ function Review({ review }: { review: ReviewWithReviewer }) {
         <p className="font-semibold text-xs">
           {new Date(review.createdAt).toLocaleString()}
         </p>
+        <SettingsContainer
+          review={review}
+          setIsEditting={setIsEditting}
+          setSelectedRating={setSelectedRating}
+          setReviewId={setReviewId}
+        />
       </div>
       <ul className="flex">
-        {[
-          ...Array(5)
-            .fill("j")
-            .map((_, ind) => {
-              return (
-                <li key={ind}>
-                  <FaStar />
-                </li>
-              );
-            }),
-        ]}
+        {stars.map((_, index) => (
+          <li key={index}>
+            <FaStar color="orange" />
+          </li>
+        ))}
       </ul>
       <p>{review.comment}</p>
       <div className=" border-b-2"></div>

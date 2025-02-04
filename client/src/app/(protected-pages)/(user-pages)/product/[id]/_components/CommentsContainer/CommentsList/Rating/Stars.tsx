@@ -9,18 +9,14 @@ function Stars({ rating }: { rating: number }) {
     <div className="flex items-center">
       {stars.map((star, index) => {
         if (index <= Math.floor(rating - 1)) {
-          return <IoIosStar color="yellow" />;
+          return <IoIosStar key={index} color="orange" />;
         }
 
         if (index <= Math.floor(rating) && Math.round(rating) > rating) {
-          return <IoIosStarHalf color="yellow" />;
+          return <IoIosStarHalf key={index} color="orange" />;
         }
 
-        return (
-          <div key={index}>
-            <IoIosStarOutline color="yellow" />;
-          </div>
-        );
+        return <IoIosStarOutline key={index} color="orange" />;
       })}
     </div>
   );

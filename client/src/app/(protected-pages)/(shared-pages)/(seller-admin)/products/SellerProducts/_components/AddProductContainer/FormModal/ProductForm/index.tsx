@@ -84,17 +84,10 @@ const ProductForm = ({
   } = useForm<ProductFormType>({
     resolver: zodResolver(ProductSchema),
     defaultValues: {
-      title: "Bajaj Pulsar NS200",
-      description:
-        "The Bajaj Pulsar NS200 is a powerful and stylish sports bike.",
-      category: "laptops",
-      tags: "pet supplies",
-      price: 12,
-      discountPercentage: 12,
-      stock: 12,
-      brand: "Brand",
-      returnPolicy: "30 days return policy",
-      minimumOrderQuantity: 12,
+      price: 0,
+      discountPercentage: 0,
+      stock: 1,
+      minimumOrderQuantity: 1,
     },
   });
 

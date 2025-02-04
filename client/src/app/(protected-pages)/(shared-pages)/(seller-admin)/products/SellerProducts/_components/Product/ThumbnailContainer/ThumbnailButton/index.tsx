@@ -15,10 +15,10 @@ function ThumbnailButton({
   return (
     <button
       type="button"
-      className=" w-full h-full"
+      className=" block w-full h-full rounded-md overflow-hidden"
       onClick={() => setIsGalleryOpen(true)}
     >
-      <figure className=" w-full aspect-square relative">
+      <figure className=" w-full h-full relative">
         <Image src={thumbnail!.url} alt={title} fill />
       </figure>
     </button>

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidateTag } from "next/cache";
 import { z } from "zod";
+import { updateRating } from "./updateRating";
 
 interface ReturnType {
   status: "success" | "error";
@@ -15,7 +16,7 @@ const CommentSchema = z.object({
   comment: z.string().min(5, "Comment must be at least 5 characters"),
 });
 
-export const commentAction = async (
+export const saveComment = async (
   productId: string,
   rating: number,
   comment: string
@@ -32,6 +33,9 @@ export const commentAction = async (
     await prisma.review.create({
       data: { comment, rating, productId, reviewerId: clerkId },
     });
+
+    await updateRating(productId);
+
     revalidateTag("product");
     return { status: "success", message: "Comment submitted successfully .." };
   } catch (error) {

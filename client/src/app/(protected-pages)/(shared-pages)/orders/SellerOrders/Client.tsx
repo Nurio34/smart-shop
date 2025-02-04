@@ -60,7 +60,7 @@ const SellerOrdersClient = ({ seller }: { seller: SellerType | null }) => {
                       <strong>Total:</strong> ${item.order.totalAmount}
                     </p>
                     <p>
-                      <strong>Status:</strong> {item.order.status}
+                      <strong>Status:</strong> {item.status}
                     </p>
                     <p>
                       <strong>Date:</strong>{" "}
@@ -68,7 +68,7 @@ const SellerOrdersClient = ({ seller }: { seller: SellerType | null }) => {
                     </p>
 
                     <div className="flex gap-2 mt-2">
-                      {item.order.status === "PENDING" && (
+                      {item.status === "PENDING" && (
                         <button
                           className="btn btn-primary"
                           onClick={() =>
@@ -78,7 +78,7 @@ const SellerOrdersClient = ({ seller }: { seller: SellerType | null }) => {
                           Mark as Shipped
                         </button>
                       )}
-                      {item.order.status === "PAID" && (
+                      {item.status === "PAID" && (
                         <button
                           className="btn btn-success"
                           onClick={() =>
@@ -88,7 +88,7 @@ const SellerOrdersClient = ({ seller }: { seller: SellerType | null }) => {
                           Mark as Delivered
                         </button>
                       )}
-                      {item.order.status !== "CANCELED" && (
+                      {item.status !== "CANCELED" && (
                         <button
                           className="btn btn-danger"
                           onClick={() =>

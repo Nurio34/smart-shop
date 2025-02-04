@@ -1,4 +1,4 @@
 function TotalReviews({ totalReviews }: { totalReviews: number }) {
-  return <div>{totalReviews} reviews</div>;
+  return <p className="font-semibold">{totalReviews} reviews</p>;
 }
 export default TotalReviews;

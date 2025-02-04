@@ -38,20 +38,7 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
               <p className="text-sm text-neutral-500">
                 <strong>Order ID:</strong> {order.id}
               </p>
-              <p className="text-sm text-neutral-500">
-                <strong>Status:</strong>{" "}
-                <span
-                  className={`font-medium ${
-                    order.status === "DELIVERED"
-                      ? "text-success"
-                      : order.status === "CANCELED"
-                      ? "text-error"
-                      : "text-info"
-                  }`}
-                >
-                  {order.status}
-                </span>
-              </p>
+
               <p className="text-sm text-neutral-500">
                 <strong>Order Date:</strong>{" "}
                 {new Date(order.createdAt).toLocaleDateString()}
@@ -86,6 +73,22 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                       </p>
                       <p className="text-sm text-neutral-600">
                         Price: ${item.price.toFixed(2)}
+                      </p>
+                      <p>
+                        Status :{" "}
+                        <span
+                          className={` py-1 px-2 text-xs font-semibold rounded-md ${
+                            item.status === "PENDING"
+                              ? "bg-warning"
+                              : item.status === "SHIPPED"
+                              ? "bg-accentt"
+                              : item.status === "DELIVERED"
+                              ? "bg-success"
+                              : "bg-error"
+                          }`}
+                        >
+                          {item.status}
+                        </span>
                       </p>
                       <Link
                         href={`/seller/${item.product.sellerId}`}

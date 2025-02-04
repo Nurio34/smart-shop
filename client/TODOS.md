@@ -1,5 +1,5 @@
--- Ürünlere yorum ve rating ekleme componenti oluştur.
--- Favicon ayarla
+-- Her bir önemli page için skeleton loading oluştur.
+-- Contact us page'i işlevsel hale getir.
 -- PWA yap
 -- Google Play'e yükle
 
