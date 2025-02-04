@@ -14,10 +14,17 @@ export type ImageType = {
 export type ProductWithImages = Product & {
   images: ImageType[];
   thumbnail: ImageType | null;
-  reviews?: (Review & { reviewer: User })[];
 };
 
-function PageContainer({ product }: { product: ProductWithImages }) {
+export type ReviewWithReviewer = Review & {
+  reviewer: User;
+};
+
+export type ProductWithImagesAndReviews = ProductWithImages & {
+  reviews: ReviewWithReviewer[];
+};
+
+function PageContainer({ product }: { product: ProductWithImagesAndReviews }) {
   return (
     <ReduxProvider>
       <PageContainerClient product={product} />
