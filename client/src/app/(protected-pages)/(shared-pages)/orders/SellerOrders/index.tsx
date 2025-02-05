@@ -7,7 +7,7 @@ type OrderType = Order & {
   user: User; // The order includes the associated user
 };
 
-type OrderItemType = OrderItem & {
+export type OrderItemType = OrderItem & {
   order: OrderType; // The orderItem includes the associated order (with user)
 };
 

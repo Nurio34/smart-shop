@@ -61,7 +61,6 @@ function CommentForm({
 
     try {
       if (isEditting) {
-        console.log("editting");
         const response = await updateComment(
           reviewId,
           data.rating,

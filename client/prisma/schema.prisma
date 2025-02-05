@@ -126,8 +126,9 @@ model Order {
 
 model OrderItem {
   id        String      @id @default(cuid())
-  sellerId  String?
-  user      User?       @relation(fields: [sellerId], references: [clerkId])
+  sellerId  String
+  user      User       @relation(fields: [sellerId], references: [clerkId])
+  recieverId String
   orderId   String
   order     Order       @relation(fields: [orderId], references: [id])
   productId String

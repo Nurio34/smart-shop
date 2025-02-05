@@ -18,8 +18,6 @@ export const createProduct = async (
   data: ProductFormType,
   cloudinaryImages: CloudinaryImagesType
 ): Promise<ReturnType> => {
-  console.log("createProduct - action ...");
-
   const clerkUser = await currentUser();
 
   if (!clerkUser) return redirect("/home");

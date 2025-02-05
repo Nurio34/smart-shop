@@ -22,9 +22,9 @@ function ApplyChanges({
         setError("Try Again !");
         return;
       }
-    } catch (err) {
+    } catch (error) {
       setError("Try Again !");
-      console.log(err);
+      console.log(error);
     } finally {
       setIsLoading(false);
     }

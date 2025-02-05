@@ -29,10 +29,10 @@ function DeleteImageButton({
     try {
       setIsLoading(true);
       const response = await deleteImage(image);
-      console.log({ response });
+
       if (response.status === "success") {
         const res = await deleteImageFromDb(image);
-        console.log(res);
+
         if (res.status === "success") {
           setProductControls((prev) => ({
             ...prev,

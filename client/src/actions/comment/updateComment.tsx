@@ -16,7 +16,6 @@ export const updateComment = async (
   productId: string
 ): Promise<ReturnType> => {
   try {
-    console.log({ reviewId, rating, comment });
     if (!reviewId) return { status: "error" };
 
     const user = await currentUser();

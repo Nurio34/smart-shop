@@ -28,13 +28,14 @@ export const createOrder = async (
       data: {
         userClerkId,
         totalAmount: total,
-        status: "PENDING",
         items: {
           createMany: {
-            data: cart.map(({ price, id: productId, quantity }) => ({
+            data: cart.map(({ price, id: productId, quantity, sellerId }) => ({
               price,
               productId,
               quantity,
+              sellerId,
+              recieverId: userClerkId,
             })),
           },
         },

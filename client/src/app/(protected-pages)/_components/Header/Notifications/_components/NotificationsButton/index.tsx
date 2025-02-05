@@ -41,7 +41,7 @@ function NotificationsButton({
       </button>
       {isAnyNewNotifications && (
         <div
-          className=" absolute bottom-0 right-0 translate-y-1/3 translate-x-1/3 rounded-full bg-warning w-6 aspect-square
+          className=" absolute bottom-0 right-0 translate-y-1/3 translate-x-1/3 rounded-full bg-warning text-warning-content w-6 aspect-square
         flex justify-center items-center text-sm
       "
         >

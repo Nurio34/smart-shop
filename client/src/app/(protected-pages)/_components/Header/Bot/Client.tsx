@@ -44,7 +44,7 @@ function BotClient({
     setIsLoading(true);
     try {
       const response = await recomendations(chatHistory, message);
-      console.log(response);
+
       setChatHistory((prev) => [...prev, { role: "model", message: response }]);
     } catch (error) {
       console.log(error);

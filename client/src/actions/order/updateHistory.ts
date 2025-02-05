@@ -21,6 +21,6 @@ export const updateHistory = async (cart: ProductWithQuantity[]) => {
       },
     });
   } catch (error) {
-    console.log("Error updating user history:", error);
+    console.log(error);
   }
 };

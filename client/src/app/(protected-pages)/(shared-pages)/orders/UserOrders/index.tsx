@@ -9,14 +9,7 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
       items: {
         include: {
           product: {
-            include: {
-              seller: {
-                select: {
-                  brand: true,
-                },
-              },
-              thumbnail: true,
-            },
+            include: { thumbnail: true, seller: true },
           },
         },
       },
@@ -65,26 +58,22 @@ async function UserOrders({ clerkId }: { clerkId: string }) {
                       />
                     </Link>
                     <div className="flex-grow">
-                      <p className="font-medium text-neutral-800">
-                        {item.product.title}
-                      </p>
-                      <p className="text-sm text-neutral-600">
-                        Quantity: {item.quantity}
-                      </p>
-                      <p className="text-sm text-neutral-600">
+                      <p className="font-medium">{item.product.title}</p>
+                      <p className="text-sm ">Quantity: {item.quantity}</p>
+                      <p className="text-sm ">
                         Price: ${item.price.toFixed(2)}
                       </p>
                       <p>
                         Status :{" "}
                         <span
-                          className={` py-1 px-2 text-xs font-semibold rounded-md ${
+                          className={`badge badge-outline font-bold ${
                             item.status === "PENDING"
-                              ? "bg-warning"
+                              ? "badge-warning"
                               : item.status === "SHIPPED"
-                              ? "bg-accentt"
+                              ? "badge-secondary"
                               : item.status === "DELIVERED"
-                              ? "bg-success"
-                              : "bg-error"
+                              ? "badge-success"
+                              : "badge-error"
                           }`}
                         >
                           {item.status}
