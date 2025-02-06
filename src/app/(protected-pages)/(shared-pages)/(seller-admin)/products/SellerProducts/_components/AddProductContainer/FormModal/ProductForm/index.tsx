@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import Category from "./Category";
 import Tag from "./Tag";
 import Thumbnail from "./Thumbnail";
@@ -16,7 +16,6 @@ import GalleyContainer from "./GalleryContainer";
 import { createAiDescription } from "@/actions/gemini/createAiDescription";
 import BotContainer from "./BotContainer";
 
-// Define Zod schema for validation
 export const ProductSchema = z.object({
   title: z.string().min(3, "Title must be at least 3 characters long"),
   description: z.string().min(10, "Description must be at least 10 characters"),
@@ -107,6 +106,8 @@ const ProductForm = ({
   //! *** aiDesciption-state ***
   const [aiDescription, setAiDescription] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const aiTimeout = useRef<NodeJS.Timeout | null>(null);
+  console.log({ isGenerating });
   //! ***
 
   const watchList = watch();
@@ -200,20 +201,34 @@ const ProductForm = ({
       .map((image) => image.secure_url!)
       .concat(thumbnail.secure_url!);
 
-    try {
-      setIsGenerating(true);
-      setAiDescription("");
-      const response = await createAiDescription(title, description, urls);
+    setIsGenerating(true);
 
-      if (response.status === "error") {
-        setAiDescription("Error while generate !");
-        return;
+    try {
+      console.log("ok.......");
+      setAiDescription("");
+
+      if (aiTimeout.current) {
+        clearTimeout(aiTimeout.current);
       }
-      setAiDescription(response.description!);
+
+      aiTimeout.current = setTimeout(async () => {
+        try {
+          const response = await createAiDescription(title, description, urls);
+          if (response.status === "error") {
+            setAiDescription("Error while generating!");
+            return;
+          }
+          setAiDescription(response.description!);
+        } catch (error) {
+          console.log(error);
+          setAiDescription("Error while generating!");
+        } finally {
+          setIsGenerating(false);
+        }
+      }, 5000);
     } catch (error) {
       console.log(error);
-      setAiDescription("Error while generate !");
-    } finally {
+      setAiDescription("Error while generating!");
       setIsGenerating(false);
     }
   };
@@ -221,6 +236,7 @@ const ProductForm = ({
   useEffect(() => {
     createAiDescriptionAction();
   }, [watchList.title, watchList.description, cloudinaryImages]);
+
   //! ***
 
   const onSubmit = async (data: ProductFormType) => {

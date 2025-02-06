@@ -6,42 +6,86 @@ Smart Shop is a cutting-edge **AI-powered e-commerce** platform that provides a 
 
 ### 🛍️ Public Pages
 
-- **Landing Page (/)** – Eye-catching homepage introducing Smart Shop.
-- **About Page (/about)** – Information about Smart Shop’s vision.
-- **Services Page (/services)** – Overview of available services.
-- **Contact Page (/contact)** – Allows users to get in touch.
+- **Landing Page (/)** – The main page of Smart Shop, showcasing the platform’s features and benefits.
+- **About Page (/about)** – Provides insights into the vision, mission, and objectives of Smart Shop.
+- **Services Page (/services)** – Outlines the key services and functionalities available.
+- **Contact Page (/contact)** – Users can fill out a form to get in touch with support or inquiries.
 
 ### 🔑 Authentication & User Roles
 
-- Users can **sign up** and **log in**, then are redirected to **/home**.
-- Upon registration, users are assigned the **USER** role.
+- **User Authentication** – Users can sign up and log in using a secure authentication system.
+- **Redirection to Home** – After logging in, users are taken to the **/home** page, which displays the first five products from every category.
+- **Default User Role** – Upon signing up, the default role assigned is **USER**.
 
 ### 👥 User Functionalities
 
-- **Explore Products (/explore)** – Browse, filter (category, price, tags, ratings), sort, and paginate products (30 per page).
-- **Cart (/cart)** – Manage cart and checkout. Sellers get notified upon checkout.
-- **Orders (/orders)** – Track and monitor order statuses.
-- **Profile (/profile)** – Customize account settings.
-- **Support (/support)** – Access customer support.
-- **Product Details (/product/:id)** – View product details, ratings, reviews, and add reviews.
-- **Seller Profile (/seller/:id)** – View seller details and their products.
+- **Explore Products (/explore)** – Users can browse and filter products based on:
+  - **Category** – Filter products based on predefined categories.
+  - **Minimum and Maximum Price** – Define a price range for products.
+  - **Tags and Ratings** – Sort by product tags or user ratings.
+  - **Sorting Options** – Sort results by price, popularity, or newest items.
+  - **Pagination** – Displays 30 products per page with navigation buttons for more.
+- **Cart (/cart)** – Users can:
+  - **Add and remove items** from their cart.
+  - **Proceed to checkout** to finalize their purchase.
+  - **Trigger a notification** to the seller upon a successful checkout.
+- **Orders (/orders)** – Users can:
+  - **Track all placed orders** and their status updates.
+  - **View details** of each order including delivery status.
+- **Profile (/profile)** – Users can update personal information, such as:
+  - Name, email, and password.
+  - Manage notification preferences.
+  - Update shipping details.
+- **Support (/support)** – Users can:
+  - **Submit a support ticket** for assistance.
+  - **Browse FAQs** for common issues.
+- **Product Details (/product/:id)** – On this page, users can:
+  - **View product descriptions, images, and details.**
+  - **See product ratings and reviews.**
+  - **Rate the product and leave a review.**
+- **Seller Profile (/seller/:id)** – Users can:
+  - **View details about the seller.**
+  - **See all products listed by the seller.**
 
 ### 🛠️ Header Features
 
-- **🔔 Notification Button** – View order status updates.
-- **🤖 AI Bot Button** – AI tracks user activity and recommends products.
-- **🎨 Theme Changer** – Toggle between themes.
-- **🛒 Become a Seller Button** – Redirects to seller application page.
+- **🔔 Notification Button** – Users receive real-time notifications for:
+  - Order status changes (Pending → Shipped → Delivered).
+  - Important system messages or promotions.
+- **🤖 AI Bot Button** – The AI-powered assistant:
+  - Tracks user behavior (visited, viewed, and purchased products).
+  - Provides personalized recommendations based on past activity.
+- **🎨 Theme Changer** – Users can switch between light and dark mode for an optimized experience.
+- **🛒 Become a Seller Button** – When clicked, it redirects to the **/become-seller** page, where users can:
+  - **Fill out a form** with personal and business details.
+  - **Submit the application** to become a seller.
+  - **Restricted Access** – Once approved, users can no longer access buyer-only pages.
 
 ### 🏪 Seller Functionalities
 
-- **Dashboard (/dashboard)** – View total products, total orders, revenue stats, and analytics.
-- **Orders (/orders)** – Update order statuses (**PENDING → SHIPPED → DELIVERED**) and notify users.
-- **Profile (/profile)** – Manage seller account settings.
+- **Home Page (/home)** – Shows the first five products from every category.
+- **Dashboard (/dashboard)** – Provides an overview of seller activities:
+  - **Total Products** – Number of active products.
+  - **Total Orders Received** – The number of successful sales.
+  - **Total Revenue** – Earnings summary.
+  - **Monthly Revenue Graph** – Visual representation of earnings trends.
+  - **List of Products** – Quick access to seller’s inventory.
+- **Orders (/orders)** – Sellers can:
+  - **Update order statuses** from **PENDING → SHIPPED → DELIVERED**.
+  - **Trigger a notification** to the buyer whenever status changes.
+- **Profile (/profile)** – Sellers can manage their business settings, including:
+  - Personal and store information.
+  - Preferred notification settings.
 - **Products (/products)**:
-  - **Add New Product** – Upload product details and images. AI assists with title & description enhancement.
-  - **Edit Product** – Modify product details, update images.
-  - **Delete Product** – Remove unwanted products.
+  - **Add New Product** –
+    - Fill out a product form with title, description, category, and pricing.
+    - Upload a **thumbnail** and multiple **product images**.
+    - Use **next-cloudinary** to edit images after upload.
+    - AI Assistant provides **title and description suggestions** based on analysis.
+  - **Edit Product** –
+    - Modify any product details.
+    - Change **thumbnail** or **add/remove images**.
+  - **Delete Product** – Remove a product from the inventory.
 
 ## ⚡ Tech Stack
 
@@ -61,7 +105,7 @@ Smart Shop is a cutting-edge **AI-powered e-commerce** platform that provides a 
 - **Prisma && PostgreSQL with NeonDB** – Database management.
 - **Cloudinary** – Image storage and optimization.
 - **Nodemailer** – Email services.
-- **OpenAI & Google Generative AI** – AI-powered recommendations and content generation.
+- **Google Generative AI** – AI-powered recommendations and content generation.
 
 ### 🔐 Authentication & Security
 
@@ -82,7 +126,7 @@ Smart Shop is a cutting-edge **AI-powered e-commerce** platform that provides a 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/smart-shop.git
+git clone https://github.com/nurio34/smart-shop.git
 cd smart-shop
 
 # Install dependencies
@@ -109,4 +153,4 @@ npm run start
 
 ---
 
-Made with ❤️ by Nurio34 🚀
+Made with ❤️ by the Nurio34 🚀

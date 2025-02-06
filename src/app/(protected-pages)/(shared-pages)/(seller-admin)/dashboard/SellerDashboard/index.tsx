@@ -82,7 +82,7 @@ async function SellerDashboard({ user }: { user: UserWithSellerAndProducts }) {
 
       {/* Product List */}
       <h2 className=" text-2xl font-bold pb-2">Products</h2>
-      <ul className="grid grid-cols-[repeat(auto-fill,minmax(300,1fr))] gap-x-[2vw] gap-y-[2vh] items-center ">
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-x-[2vw] gap-y-[2vh] items-center ">
         {products.map((product) => (
           <li
             key={product.id}

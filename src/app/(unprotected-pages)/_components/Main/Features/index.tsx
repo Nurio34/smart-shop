@@ -25,7 +25,7 @@ function Features() {
       <h2 className="text-3xl md:text-4xl font-bold text-center pb-[4vh]">
         Smart Features for Smart Shopping
       </h2>
-      <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-[4vw]">
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-x-[4vw] gap-y-[1vh]">
         {features.map((feature, index) => (
           <li
             key={index}
