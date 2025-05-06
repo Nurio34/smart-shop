@@ -24,7 +24,6 @@ const downloadImage = async (cloudinaryUrl: string, savePath: string) => {
     const response = await fetch(cloudinaryUrl);
     const buffer = await response.buffer();
     fs.writeFileSync(savePath, buffer);
-    console.log("Image downloaded and saved to:", savePath);
     return savePath;
   } catch (error) {
     console.error("Error downloading image:", error);
@@ -42,7 +41,6 @@ const updateCloudinaryImage = async (
       public_id: publicId, // Replace the existing image
       overwrite: true,
     });
-    console.log("Updated Cloudinary image:", response.secure_url);
     return response;
   } catch (error) {
     console.error("Error updating Cloudinary image:", error);

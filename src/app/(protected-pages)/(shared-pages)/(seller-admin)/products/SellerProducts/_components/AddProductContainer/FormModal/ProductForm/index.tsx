@@ -107,7 +107,6 @@ const ProductForm = ({
   const [aiDescription, setAiDescription] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const aiTimeout = useRef<NodeJS.Timeout | null>(null);
-  console.log({ isGenerating });
   //! ***
 
   const watchList = watch();
@@ -204,7 +203,6 @@ const ProductForm = ({
     setIsGenerating(true);
 
     try {
-      console.log("ok.......");
       setAiDescription("");
 
       if (aiTimeout.current) {
