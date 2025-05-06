@@ -65,7 +65,7 @@ enum SellerStatus {
 model Product {
   id                   String      @id @default(cuid())
   sellerId             String
-  seller               Seller      @relation(fields: [sellerId], references: [userId])
+  seller               Seller      @relation(fields: [sellerId], references: [userId],onDelete:Cascade )
   title                String
   description          String
   category             String
@@ -105,11 +105,11 @@ model Thumbnail {
 model Review {
   id         String   @id @default(cuid())
   productId  String
-  product    Product  @relation(fields: [productId], references: [id])
+  product    Product  @relation(fields: [productId], references: [id],onDelete: Cascade)
   rating     Int
   comment    String
   reviewerId String
-  reviewer   User     @relation(fields: [reviewerId], references: [clerkId])
+  reviewer   User     @relation(fields: [reviewerId], references: [clerkId],onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -117,7 +117,7 @@ model Review {
 model Order {
   id          String      @id @default(cuid())
   userClerkId String
-  user        User        @relation(fields: [userClerkId], references: [clerkId])
+  user        User        @relation(fields: [userClerkId], references: [clerkId],onDelete: Cascade)
   totalAmount Float
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
@@ -127,12 +127,12 @@ model Order {
 model OrderItem {
   id        String      @id @default(cuid())
   sellerId  String
-  user      User       @relation(fields: [sellerId], references: [clerkId])
+  user      User       @relation(fields: [sellerId], references: [clerkId],onDelete: Cascade)
   recieverId String
   orderId   String
-  order     Order       @relation(fields: [orderId], references: [id])
+  order     Order       @relation(fields: [orderId], references: [id],onDelete: Cascade)
   productId String
-  product   Product     @relation(fields: [productId], references: [id])
+  product   Product     @relation(fields: [productId], references: [id],onDelete: Cascade)
   quantity  Int
   price     Float
   status    OrderStatus @default(PENDING) // ✅ Set a default value
@@ -149,7 +149,7 @@ enum OrderStatus {
 model Notification {
   id         String   @id @default(cuid())
   recieverId String
-  reciever   User     @relation(fields: [recieverId], references: [clerkId])
+  reciever   User     @relation(fields: [recieverId], references: [clerkId],onDelete: Cascade)
   message    String
   seen       Boolean  @default(false)
   createdAt  DateTime @default(now())
